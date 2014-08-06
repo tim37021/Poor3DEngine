@@ -56,5 +56,19 @@ void CoreEngine::run()
 			std::cout<<window->getFPS()<<std::endl;
 			lastDisplayFPS = getTime();
 		}
+
+		window->update();
 	}
 }
+
+#ifdef DEBUG
+int main(int argc, char *argv[])
+{
+	CoreEngine engine(60.0);
+
+	engine.createWindow(800, 600, "Default");
+
+	engine.start();
+	return 0;
+}
+#endif
