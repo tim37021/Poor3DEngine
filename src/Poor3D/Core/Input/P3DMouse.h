@@ -41,7 +41,8 @@ namespace Poor3D
 				bool mouseUp(int button) const
 					{ return up[button]; }
 
-				bool getButtonState(int button) const;			private:
+				bool getButtonState(int button) const;
+			private:
 				//Current pressed button
 				bool current[8];
 				bool down[8];
