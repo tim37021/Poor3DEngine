@@ -35,6 +35,11 @@ void P3DWindow::update()
 	glfwPollEvents();
 }
 
+bool P3DWindow::isCloseRequested() const
+{
+	return glfwWindowShouldClose(window);
+}
+
 void P3DWindow::setTitle(const char *_t)
 {
 	glfwSetWindowTitle(window, _t);
@@ -51,11 +56,6 @@ void P3DWindow::setSize(int _w, int _h)
 void P3DWindow::makeCurrent() const
 {
 	glfwMakeContextCurrent(window);
-}
-
-bool P3DWindow::isCloseRequested() const
-{
-	return glfwWindowShouldClose(window);
 }
 
 #ifdef DEBUG
