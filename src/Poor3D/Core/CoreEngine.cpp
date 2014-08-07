@@ -5,8 +5,8 @@
 
 using namespace Poor3D::Core;
 
-CoreEngine::CoreEngine(double frameRate)
-	:frameTime(1.0/frameRate), window(nullptr), isRunning(false)
+CoreEngine::CoreEngine(Game *_g, double frameRate)
+	:frameTime(1.0/frameRate), window(nullptr), game(_g), isRunning(false)
 {
 	glfwInit();
 }
@@ -49,6 +49,7 @@ void CoreEngine::run()
 		while(getTime() - lastRenderTime <= frameTime)
 		{
 			//Update game
+			game->update();
 		}
 		lastRenderTime = getTime();
 		if(getTime() - lastDisplayFPS >= 1.0)
@@ -56,6 +57,8 @@ void CoreEngine::run()
 			std::cout<<window->getFPS()<<std::endl;
 			lastDisplayFPS = getTime();
 		}
+
+		game->render();
 
 		window->update();
 	}

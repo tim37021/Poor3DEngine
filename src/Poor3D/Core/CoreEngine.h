@@ -3,6 +3,7 @@
 
 #include <string>
 #include <Poor3D/Core/Rendering/P3DWindow.h>
+#include <Poor3D/Core/Game.h>
 
 namespace Poor3D{
 	namespace Core
@@ -10,7 +11,7 @@ namespace Poor3D{
 		class CoreEngine
 		{
 		public:
-			CoreEngine(double frameRate=60.0);
+			CoreEngine(Game *game, double frameRate=60.0);
 			~CoreEngine();
 
 			void createWindow(int width, int height,
@@ -23,6 +24,7 @@ namespace Poor3D{
 			int width, height;
 
 			Rendering::P3DWindow *window; 
+			Game *game;
 			bool isRunning;
 
 			void run();
