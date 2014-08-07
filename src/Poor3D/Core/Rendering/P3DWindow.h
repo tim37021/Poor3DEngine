@@ -15,16 +15,15 @@ namespace Poor3D
 				P3DWindow(int width, int height, const char *title);
 				~P3DWindow();
 
+				//frequently used function
 				void update();
 				int getFPS() const { return FPS; }
+				bool isCloseRequested() const;
 
 				void setTitle(const char *);
 				void setSize(int width, int height);
-
 				void makeCurrent() const;
-
 				const char *getTitle() const { return title.c_str(); }
-				bool isCloseRequested() const;
 			private:
 				int frames;
 				int FPS;
