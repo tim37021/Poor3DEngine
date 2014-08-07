@@ -30,6 +30,12 @@ void P3DMouse::update()
 		current[i] = state;
 	}
 }
+
+void P3DMouse::getPosition(double *x, double *y) const 
+{
+	glfwGetCursorPos(window->getHandler(), x, y);
+}
+
 bool P3DMouse::getButtonState(int button) const
 {
 	return (glfwGetMouseButton(window->getHandler(), button)==GLFW_PRESS);

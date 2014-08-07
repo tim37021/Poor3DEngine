@@ -8,9 +8,11 @@ class myGame: public Game
 {
 	virtual void update()
 	{
+		double x, y;
+		engine->getMouse()->getPosition(&x, &y);
 		if(engine->getMouse()->mouseDown(0)){
 
-			std::cout<<"Mouse Down"<<std::endl;
+			std::cout<<"Mouse Down at ("<<x<<", "<<y<<")"<<std::endl;
 		}
 
 		if(engine->getMouse()->mouseUp(0)){

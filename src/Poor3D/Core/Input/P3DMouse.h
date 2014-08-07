@@ -34,6 +34,7 @@ namespace Poor3D
 				void setWindow(Poor3D::Core::Rendering::P3DWindow *_w)
 				{ window = _w; }
 
+				void getPosition(double *x, double *y) const;
 				//check mouse state in this update
 				bool mouseDown(int button) const
 					{ return down[button]; }
