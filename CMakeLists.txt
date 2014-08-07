@@ -11,6 +11,7 @@ set(SOURCE
 	./src/Poor3D/Core/CoreEngine.cpp
 	./src/Poor3D/Core/Rendering/P3DWindow.cpp
 	./src/Poor3D/Core/Input/P3DMouse.cpp
+	./src/Poor3D/Core/Input/P3DKeyboard.cpp
 )
 
 include_directories(./src)

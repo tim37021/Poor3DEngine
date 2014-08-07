@@ -19,6 +19,11 @@ class myGame: public Game
 
 			std::cout<<"Mouse Up"<<std::endl;
 		}
+
+		//ESC
+		if(engine->getKeyboard()->keyUp(256)){
+			engine->stop();
+		}
 	}
 	virtual void render(){}
 };
