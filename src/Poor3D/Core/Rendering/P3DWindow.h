@@ -19,6 +19,7 @@ namespace Poor3D
 				void update();
 				int getFPS() const { return FPS; }
 				bool isCloseRequested() const;
+				GLFWwindow *getHandler() const { return window; }
 
 				void setTitle(const char *);
 				void setSize(int width, int height);
