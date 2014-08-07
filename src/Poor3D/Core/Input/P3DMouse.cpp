@@ -10,8 +10,6 @@ P3DMouse::P3DMouse(P3DWindow *_w)
 
 }
 
-#include <iostream>
-
 void P3DMouse::update()
 {
 	for(int i=0; i<8; i++)
