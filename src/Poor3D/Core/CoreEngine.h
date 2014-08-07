@@ -5,6 +5,7 @@
 #include <Poor3D/Core/Rendering/P3DWindow.h>
 #include <Poor3D/Core/Game.h>
 #include <Poor3D/Core/Input/P3DMouse.h>
+#include <Poor3D/Core/Input/P3DKeyboard.h>
 
 namespace Poor3D{
 	namespace Core
@@ -19,6 +20,8 @@ namespace Poor3D{
 
 			const Input::P3DMouse *getMouse() const
 			{ return mouse; }
+			const Input::P3DKeyboard *getKeyboard() const
+			{ return keybd; }
 
 			void createWindow(int width, int height,
 				const char *title);
@@ -31,6 +34,7 @@ namespace Poor3D{
 
 			Rendering::P3DWindow *window; 
 			Input::P3DMouse *mouse;
+			Input::P3DKeyboard *keybd;
 			Game *game;
 			bool isRunning;
 

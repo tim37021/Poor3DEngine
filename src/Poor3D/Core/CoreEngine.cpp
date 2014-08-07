@@ -9,6 +9,7 @@ CoreEngine::CoreEngine(Game *_g, double frameRate)
 	:frameTime(1.0/frameRate), 
 	window(nullptr), 
 	mouse(new Input::P3DMouse()), 
+	keybd(new Input::P3DKeyboard),
 	game(_g), 
 	isRunning(false)
 {
@@ -26,6 +27,7 @@ void CoreEngine::createWindow(int width, int height,
 {
 	window = new Rendering::P3DWindow(width, height, title);
 	mouse->setWindow(window);
+	keybd->setWindow(window);
 }
 
 void CoreEngine::start()
@@ -56,6 +58,7 @@ void CoreEngine::run()
 		{
 			//Update game
 			mouse->update();
+			keybd->update();
 			game->update();
 		}
 		lastRenderTime = getTime();
