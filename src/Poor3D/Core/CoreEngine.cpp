@@ -6,8 +6,13 @@
 using namespace Poor3D::Core;
 
 CoreEngine::CoreEngine(Game *_g, double frameRate)
-	:frameTime(1.0/frameRate), window(nullptr), game(_g), isRunning(false)
+	:frameTime(1.0/frameRate), 
+	window(nullptr), 
+	mouse(new Input::P3DMouse()), 
+	game(_g), 
+	isRunning(false)
 {
+	game->setEngine(this);
 	glfwInit();
 }
 
@@ -20,6 +25,7 @@ void CoreEngine::createWindow(int width, int height,
 	const char *title)
 {
 	window = new Rendering::P3DWindow(width, height, title);
+	mouse->setWindow(window);
 }
 
 void CoreEngine::start()
@@ -49,6 +55,7 @@ void CoreEngine::run()
 		while(getTime() - lastRenderTime <= frameTime)
 		{
 			//Update game
+			mouse->update();
 			game->update();
 		}
 		lastRenderTime = getTime();
