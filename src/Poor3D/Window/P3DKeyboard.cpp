@@ -18,6 +18,12 @@ P3DKeyboard::P3DKeyboard(P3DWindow *_w)
 
 }
 
+P3DKeyboard::~P3DKeyboard()
+{
+	delete tmpState;
+	delete current;
+}
+
 void P3DKeyboard::update()
 {
 	down.clear();
