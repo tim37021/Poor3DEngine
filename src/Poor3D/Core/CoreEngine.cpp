@@ -19,6 +19,9 @@ CoreEngine::CoreEngine(Game *_g, double frameRate)
 
 CoreEngine::~CoreEngine()
 {
+	delete window;
+	delete mouse;
+	delete keybd;
 	glfwTerminate();
 }
 
