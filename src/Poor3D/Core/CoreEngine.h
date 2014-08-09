@@ -4,8 +4,8 @@
 #include <string>
 #include <Poor3D/Window/P3DWindow.h>
 #include <Poor3D/Core/Game.h>
-#include <Poor3D/Core/Input/P3DMouse.h>
-#include <Poor3D/Core/Input/P3DKeyboard.h>
+#include <Poor3D/Window/P3DMouse.h>
+#include <Poor3D/Window/P3DKeyboard.h>
 
 namespace Poor3D{
 	namespace Core
@@ -18,9 +18,9 @@ namespace Poor3D{
 			CoreEngine(Game *game, double frameRate=60.0);
 			~CoreEngine();
 
-			const Input::P3DMouse *getMouse() const
+			const Poor3D::Window::P3DMouse *getMouse() const
 			{ return mouse; }
-			const Input::P3DKeyboard *getKeyboard() const
+			const Poor3D::Window::P3DKeyboard *getKeyboard() const
 			{ return keybd; }
 
 			const Poor3D::Window::P3DWindow *getWindow() const 
@@ -35,8 +35,8 @@ namespace Poor3D{
 			int width, height;
 
 			Poor3D::Window::P3DWindow *window; 
-			Input::P3DMouse *mouse;
-			Input::P3DKeyboard *keybd;
+			Poor3D::Window::P3DMouse *mouse;
+			Poor3D::Window::P3DKeyboard *keybd;
 			Game *game;
 			bool isRunning;
 

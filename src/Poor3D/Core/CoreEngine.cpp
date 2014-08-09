@@ -4,12 +4,13 @@
 #include <iostream>
 
 using namespace Poor3D::Core;
+using namespace Poor3D::Window;
 
 CoreEngine::CoreEngine(Game *_g, double frameRate)
 	:frameTime(1.0/frameRate), 
 	window(nullptr), 
-	mouse(new Input::P3DMouse()), 
-	keybd(new Input::P3DKeyboard),
+	mouse(new P3DMouse()), 
+	keybd(new P3DKeyboard),
 	game(_g), 
 	isRunning(false)
 {
@@ -25,7 +26,7 @@ CoreEngine::~CoreEngine()
 void CoreEngine::createWindow(int width, int height,
 	const char *title)
 {
-	window = new Poor3D::Window::P3DWindow(width, height, title);
+	window = new P3DWindow(width, height, title);
 	mouse->setWindow(window);
 	keybd->setWindow(window);
 }

@@ -1,7 +1,6 @@
-#include <Poor3D/Core/Input/P3DKeyboard.h>
+#include <Poor3D/Window/P3DKeyboard.h>
 #include <GLFW/glfw3.h>
 
-using namespace Poor3D::Core::Input;
 using namespace Poor3D::Window;
 
 P3DKeyboard::P3DKeyboard()
