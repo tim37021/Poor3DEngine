@@ -23,6 +23,8 @@ namespace Poor3D{
 			const Input::P3DKeyboard *getKeyboard() const
 			{ return keybd; }
 
+			const Rendering::P3DWindow *getWindow() const 
+			{ return window; }
 			void createWindow(int width, int height,
 				const char *title);
 

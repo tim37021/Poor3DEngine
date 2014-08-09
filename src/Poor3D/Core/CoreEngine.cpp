@@ -51,7 +51,6 @@ void CoreEngine::run()
 	window->makeCurrent();
 
 	double lastRenderTime = getTime();
-	double lastDisplayFPS = getTime();
 	while(isRunning && !window->isCloseRequested())
 	{
 		while(getTime() - lastRenderTime <= frameTime)
@@ -62,14 +61,8 @@ void CoreEngine::run()
 			game->update();
 		}
 		lastRenderTime = getTime();
-		if(getTime() - lastDisplayFPS >= 1.0)
-		{
-			std::cout<<window->getFPS()<<std::endl;
-			lastDisplayFPS = getTime();
-		}
 
 		game->render();
-
 		window->update();
 	}
 }
