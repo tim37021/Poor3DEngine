@@ -1,6 +1,8 @@
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <Poor3D/Core/CoreEngine.h>
 #include <Poor3D/Core/Time.h>
+#include <stdexcept>
 
 using namespace Poor3D::Core;
 using namespace Poor3D::Window;
@@ -28,7 +30,8 @@ CoreEngine::~CoreEngine()
 void CoreEngine::createWindow(int width, int height,
 	const char *title)
 {
-	window = new P3DWindow(width, height, title);
+	//Create OpenGL 3.3 context window
+	window = new P3DWindow(width, height, title, 3, 3);
 	mouse->setWindow(window);
 	keybd->setWindow(window);
 }
@@ -52,6 +55,13 @@ void CoreEngine::run()
 	isRunning = true;
 
 	window->makeCurrent();
+
+	GLenum err=glewInit();
+	if (err != GLEW_OK)
+		throw std::runtime_error("GLEW FAILED");
+
+	if (!glewIsSupported("GL_VERSION_3_3"))
+		throw std::runtime_error("This application need OpenGL 3.3");
 
 	double lastRenderTime = getTime();
 	while(isRunning && !window->isCloseRequested())
