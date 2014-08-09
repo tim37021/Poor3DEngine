@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 
 using namespace Poor3D::Core::Input;
-using namespace Poor3D::Core::Rendering;
+using namespace Poor3D::Window;
 
 P3DKeyboard::P3DKeyboard()
 	: current(new std::vector<int>()),

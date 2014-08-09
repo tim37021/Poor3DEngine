@@ -25,7 +25,7 @@ CoreEngine::~CoreEngine()
 void CoreEngine::createWindow(int width, int height,
 	const char *title)
 {
-	window = new Rendering::P3DWindow(width, height, title);
+	window = new Poor3D::Window::P3DWindow(width, height, title);
 	mouse->setWindow(window);
 	keybd->setWindow(window);
 }

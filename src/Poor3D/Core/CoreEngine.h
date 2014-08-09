@@ -2,7 +2,7 @@
 #define CORE_COREENGINE_H_
 
 #include <string>
-#include <Poor3D/Core/Rendering/P3DWindow.h>
+#include <Poor3D/Window/P3DWindow.h>
 #include <Poor3D/Core/Game.h>
 #include <Poor3D/Core/Input/P3DMouse.h>
 #include <Poor3D/Core/Input/P3DKeyboard.h>
@@ -23,7 +23,7 @@ namespace Poor3D{
 			const Input::P3DKeyboard *getKeyboard() const
 			{ return keybd; }
 
-			const Rendering::P3DWindow *getWindow() const 
+			const Poor3D::Window::P3DWindow *getWindow() const 
 			{ return window; }
 			void createWindow(int width, int height,
 				const char *title);
@@ -34,7 +34,7 @@ namespace Poor3D{
 			double frameTime;
 			int width, height;
 
-			Rendering::P3DWindow *window; 
+			Poor3D::Window::P3DWindow *window; 
 			Input::P3DMouse *mouse;
 			Input::P3DKeyboard *keybd;
 			Game *game;

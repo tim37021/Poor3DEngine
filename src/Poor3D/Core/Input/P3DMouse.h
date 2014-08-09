@@ -1,7 +1,7 @@
 #ifndef CORE_INPUT_P3DMOUSE_H_
 #define CORE_INPUT_P3DMOUSE_H_
 
-#include <Poor3D/Core/Rendering/P3DWindow.h>
+#include <Poor3D/Window/P3DWindow.h>
 #include <vector>
 
 namespace Poor3D
@@ -29,9 +29,9 @@ namespace Poor3D
 				static const int MOUSE_BUTTON_MIDDLE = MOUSE_BUTTON_3;
 				
 				P3DMouse()=default;
-				P3DMouse(Poor3D::Core::Rendering::P3DWindow *window);
+				P3DMouse(Poor3D::Window::P3DWindow *window);
 				void update();
-				void setWindow(Poor3D::Core::Rendering::P3DWindow *_w)
+				void setWindow(Poor3D::Window::P3DWindow *_w)
 				{ window = _w; }
 
 				void getPosition(double *x, double *y) const;
@@ -48,7 +48,7 @@ namespace Poor3D
 				bool down[8];
 				bool up[8];
 
-				Poor3D::Core::Rendering::P3DWindow *window;
+				Poor3D::Window::P3DWindow *window;
 			};
 		}
 	}

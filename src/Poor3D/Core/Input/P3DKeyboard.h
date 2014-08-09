@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <algorithm>
-#include <Poor3D/Core/Rendering/P3DWindow.h>
+#include <Poor3D/Window/P3DWindow.h>
 
 namespace Poor3D
 {
@@ -15,10 +15,10 @@ namespace Poor3D
 			{
 			public:
 				P3DKeyboard();
-				P3DKeyboard(Poor3D::Core::Rendering::P3DWindow *window);
+				P3DKeyboard(Poor3D::Window::P3DWindow *window);
 
 				void update();
-				void setWindow(Poor3D::Core::Rendering::P3DWindow *_w)
+				void setWindow(Poor3D::Window::P3DWindow *_w)
 				{ window = _w; }
 
 				bool keyDown(int key) const 
@@ -28,7 +28,7 @@ namespace Poor3D
 
 				bool getKeyState(int key) const;
 			private:
-				Poor3D::Core::Rendering::P3DWindow *window;
+				Poor3D::Window::P3DWindow *window;
 			
 				std::vector<int> *current;
 				std::vector<int> *tmpState;

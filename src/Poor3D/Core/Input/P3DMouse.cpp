@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 
 using namespace Poor3D::Core::Input;
-using namespace Poor3D::Core::Rendering;
+using namespace Poor3D::Window;
 
 P3DMouse::P3DMouse(P3DWindow *_w)
 	:window(_w)

@@ -2,7 +2,7 @@
 #include <Poor3D/Core/Time.h>
 #include <stdexcept>
 
-using namespace Poor3D::Core::Rendering;
+using namespace Poor3D::Window;
 using namespace Poor3D::Core;
 
 P3DWindow::P3DWindow(int _w, int _h, const char *_t)
