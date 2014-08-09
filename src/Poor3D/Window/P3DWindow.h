@@ -11,7 +11,8 @@ namespace Poor3D
 		class P3DWindow
 		{
 		public:
-			P3DWindow(int width, int height, const char *title);
+			P3DWindow(int width, int height, const char *title,
+				int major=1, int minor=2);
 			~P3DWindow();
 
 			//frequently used function

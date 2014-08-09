@@ -5,9 +5,11 @@
 using namespace Poor3D::Window;
 using namespace Poor3D::Core;
 
-P3DWindow::P3DWindow(int _w, int _h, const char *_t)
+P3DWindow::P3DWindow(int _w, int _h, const char *_t, int major, int minor)
 	: frames(0), width(_w), height(_h), title(_t)
 {
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 	window = glfwCreateWindow(width, height, _t, NULL, NULL);
 	if(!window)
 		throw std::runtime_error("Cannot create window!");
