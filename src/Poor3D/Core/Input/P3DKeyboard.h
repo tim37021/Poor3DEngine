@@ -14,7 +14,7 @@ namespace Poor3D
 			class P3DKeyboard
 			{
 			public:
-				P3DKeyboard()=default;
+				P3DKeyboard();
 				P3DKeyboard(Poor3D::Core::Rendering::P3DWindow *window);
 
 				void update();
@@ -30,8 +30,8 @@ namespace Poor3D
 			private:
 				Poor3D::Core::Rendering::P3DWindow *window;
 			
-				std::vector<int> current;
-				std::vector<int> tmpState;
+				std::vector<int> *current;
+				std::vector<int> *tmpState;
 				std::vector<int> down;
 				std::vector<int> up;
 			};
