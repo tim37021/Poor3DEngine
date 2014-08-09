@@ -1,7 +1,6 @@
 #include <GLFW/glfw3.h>
 #include <Poor3D/Core/CoreEngine.h>
 #include <Poor3D/Core/Time.h>
-#include <iostream>
 
 using namespace Poor3D::Core;
 using namespace Poor3D::Window;
