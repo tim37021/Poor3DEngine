@@ -5,7 +5,7 @@ using namespace Poor3D::Core::Input;
 using namespace Poor3D::Core::Rendering;
 
 P3DKeyboard::P3DKeyboard()
-	:current(new std::vector<int>()),
+	: current(new std::vector<int>()),
 	tmpState(new std::vector<int>())
 {
 
