@@ -19,8 +19,6 @@ P3DKeyboard::P3DKeyboard(P3DWindow *_w)
 
 }
 
-#include <cstdio>
-
 void P3DKeyboard::update()
 {
 	down.clear();
