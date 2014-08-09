@@ -14,6 +14,7 @@ namespace Poor3D
 		public:
 			P3DKeyboard();
 			P3DKeyboard(P3DWindow *window);
+			~P3DKeyboard();
 
 			void update();
 			void setWindow(P3DWindow *_w)
