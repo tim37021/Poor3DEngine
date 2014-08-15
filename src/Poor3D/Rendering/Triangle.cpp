@@ -1,6 +1,7 @@
-#include <Poor3D/Core/Triangle.h>
+#include <Poor3D/Rendering/Triangle.h>
 
-using namespace Poor3D::Core;
+using namespace Poor3D::Rendering;
+using namespace Poor3D::Math;
 
 Triangle::Triangle(Vec3f *v, Vec3f *n, Vec3f *c)
 {
