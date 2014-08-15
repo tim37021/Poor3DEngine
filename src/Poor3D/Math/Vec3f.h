@@ -12,6 +12,7 @@ namespace Poor3D
 		public:
 			float x, y, z;
 
+			Vec3f(): x(0.0), y(0.0), z(0.0){}
 			Vec3f(float _x, float _y, float _z): x(_x), y(_y), z(_z){}
 			Vec3f(const Vec3f &copy)=default;
 
@@ -39,10 +40,12 @@ namespace Poor3D
 			{
 				return x*rhs.x + y*rhs.y + z*rhs.z;
 			}
+			//y1 z1 x1 y1
+			//y2 z2 x2 y2
 
-			float cross(const Vec3f &rhs) const 
+			Vec3f cross(const Vec3f &rhs) const 
 			{
-				return Vec3f(b*f-e*c, c*d-f*a, a*e-d*b);
+				return Vec3f(y*rhs.z-rhs.y*z, z*rhs.x-rhs.z*x, x*rhs.y-rhs.x*y);
 			}
 
 			float length() const
