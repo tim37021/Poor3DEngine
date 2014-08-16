@@ -1,5 +1,4 @@
-#include "P3DWindow.h"
-#include <Poor3D/Core/Time.h>
+#include <Poor3D/Poor3D.h>
 #include <stdexcept>
 
 using namespace Poor3D::Window;

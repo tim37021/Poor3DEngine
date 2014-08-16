@@ -13,6 +13,7 @@ namespace Poor3D
 		public:
 			virtual void render() = 0;
 			virtual void update() = 0;
+			virtual void buildScene() = 0;
 
 			void setEngine(CoreEngine *e)
 			{ engine = e; }

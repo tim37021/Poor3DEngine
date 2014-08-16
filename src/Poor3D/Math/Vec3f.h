@@ -36,6 +36,22 @@ namespace Poor3D
 				return Vec3f(x*factor, y*factor, z*factor);
 			}
 
+			const Vec3f &operator+=(const Vec3f &rhs)
+			{
+				x+=rhs.x;
+				y+=rhs.y;
+				z+=rhs.z;
+				return *this;
+			}
+
+			const Vec3f &operator-=(const Vec3f &rhs)
+			{
+				x-=rhs.x;
+				y-=rhs.y;
+				z-=rhs.z;
+				return *this;
+			}
+
 			float dot(const Vec3f &rhs) const 
 			{
 				return x*rhs.x + y*rhs.y + z*rhs.z;
