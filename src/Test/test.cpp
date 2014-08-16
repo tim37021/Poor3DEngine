@@ -14,7 +14,7 @@ public:
 
 	virtual void buildScene()
 	{
-		vector<Math::Vec3f> vec = {{1.0, 1.0, 0.0}, {-1.0, -1.0, 0.0}, {1.0, -1.0, 0.0}};
+		vector<Math::Vec3f> vec = {{0.0, 1.0, 0.0}, {-1.0, -1.0, 0.0}, {1.0, -1.0, 0.0}};
 		vector<int> ind = {0, 1, 2};
 		Rendering::Mesh *triangle = new Rendering::Mesh(vec, ind);
 		sc.objects.push_back(triangle);
