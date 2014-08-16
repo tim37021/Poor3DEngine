@@ -11,6 +11,7 @@ class myGame: public Core::Game
 public:
 	Rendering::RenderEngine renderEngine;
 	Scene::Scene sc;
+	Shader::Shader *shader;
 
 	virtual void buildScene()
 	{
@@ -19,6 +20,7 @@ public:
 		Rendering::Mesh *triangle = new Rendering::Mesh(vec, ind);
 		sc.objects.push_back(triangle);
 	
+		shader = new Shader::Shader("./resource/shaders/test.vs", "./resource/shaders/test.fs");
 	}
 
 	virtual void update()
@@ -30,6 +32,7 @@ public:
 	}
 	virtual void render()
 	{
+		shader->bind();
 		renderEngine.render(&sc);
 	}
 };

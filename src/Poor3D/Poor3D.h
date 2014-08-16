@@ -8,5 +8,6 @@
 #include <Poor3D/Math/Math.h>
 #include <Poor3D/Rendering/Rendering.h>
 #include <Poor3D/Scene/Scene.h>
+#include <Poor3D/Shader/Shader.h>
 
 #endif
