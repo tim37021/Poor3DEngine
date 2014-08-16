@@ -1,7 +1,4 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <Poor3D/Core/CoreEngine.h>
-#include <Poor3D/Core/Time.h>
+#include <Poor3D/Poor3D.h>
 #include <stdexcept>
 
 using namespace Poor3D::Core;
