@@ -9,18 +9,25 @@ using namespace std;
 class myGame: public Core::Game
 {
 public:
-	Rendering::RenderEngine renderEngine;
-	Scene::Scene sc;
+	Rendering::RenderEngine *renderEngine;
+	Scene::Scene *sc;
 	Shader::Shader *shader;
+
+	myGame()
+		: sc(new Scene::Scene())
+	{
+
+	}
 
 	virtual void buildScene()
 	{
 		vector<Math::Vec3f> vec = {{0.0, 1.0, 0.0}, {-1.0, -1.0, 0.0}, {1.0, -1.0, 0.0}};
 		vector<int> ind = {0, 1, 2};
 		Rendering::Mesh *triangle = new Rendering::Mesh(vec, ind);
-		sc.objects.push_back(triangle);
+		sc->objects.push_back(triangle);
 	
 		shader = new Shader::Shader("./resource/shaders/test.vs", "./resource/shaders/test.fs");
+		renderEngine = new Rendering::RenderEngine();
 	}
 
 	virtual void update()
@@ -33,7 +40,7 @@ public:
 	virtual void render()
 	{
 		shader->bind();
-		renderEngine.render(&sc);
+		renderEngine->render(sc);
 	}
 };
 
