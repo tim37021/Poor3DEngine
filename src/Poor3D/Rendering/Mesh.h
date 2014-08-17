@@ -19,6 +19,7 @@ namespace Poor3D
 
 			void render() const;
 		private:
+			GLuint vao;
 			//vertex buffer object
 			GLuint vbo;
 			//index buffer object
