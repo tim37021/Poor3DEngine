@@ -65,16 +65,25 @@ void CoreEngine::run()
 	double lastRenderTime = getTime();
 	while(isRunning && !window->isCloseRequested())
 	{
+		bool hasUpdate = false;
 		while(getTime() - lastRenderTime <= frameTime)
 		{
 			//Update game
 			mouse->update();
 			keybd->update();
 			game->update();
+			hasUpdate=true;
 		}
-		lastRenderTime = getTime();
+
+		if(!hasUpdate){
+			//Update game if the while loop didn't run
+			mouse->update();
+			keybd->update();
+			game->update();
+		}
 		game->render();
-		
 		window->update();
+
+		lastRenderTime = getTime();
 	}
 }
