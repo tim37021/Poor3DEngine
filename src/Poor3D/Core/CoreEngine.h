@@ -30,6 +30,8 @@ namespace Poor3D{
 
 			void start();
 			void stop();
+
+			int getFPS() const {return window->getFPS();}
 		private:
 			double frameTime;
 			int width, height;
