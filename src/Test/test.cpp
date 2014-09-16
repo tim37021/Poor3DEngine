@@ -12,11 +12,13 @@ public:
 	Rendering::RenderEngine *renderEngine;
 	Scene::Scene *sc;
 	Shader::Shader *shader;
-
+	float angle;
+	Math::TransMat4 t;
+	
 	myGame()
 		: sc(new Scene::Scene())
 	{
-
+		angle=0.0f;
 	}
 
 	virtual void buildScene()
@@ -32,6 +34,9 @@ public:
 
 	virtual void update()
 	{
+		angle+=0.0001f;
+		//t.setScale(sin(angle), 1.0f, 1.0f);
+		t.setRotation(angle, Math::Vec3f(0.0f, 0.0f, 1.0f));
 		//ESC
 		if(engine->getKeyboard()->keyUp(256)){
 			engine->stop();
@@ -40,6 +45,8 @@ public:
 	virtual void render()
 	{
 		shader->bind();
+		GLuint ref=glGetUniformLocation(shader->getID(), "model");	
+		glUniformMatrix4fv(ref, 1, 0, &t.getMatrix().data[0][0]);
 		renderEngine->render(sc);
 	}
 };

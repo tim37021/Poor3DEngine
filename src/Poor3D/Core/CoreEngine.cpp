@@ -57,8 +57,8 @@ void CoreEngine::run()
 	if (err != GLEW_OK)
 		throw std::runtime_error("GLEW FAILED");
 
-	if (!glewIsSupported("GL_VERSION_3_3"))
-		throw std::runtime_error("This application need OpenGL 3.3");
+	if (!glewIsSupported("GL_VERSION_2_1"))
+		throw std::runtime_error("This application need OpenGL 2.1");
 
 	game->buildScene();
 
