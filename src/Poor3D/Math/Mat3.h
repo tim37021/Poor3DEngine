@@ -80,7 +80,7 @@ namespace Poor3D
 				}
 		};
 
-		inline Mat3 RotationMatrixByZ(float angle)
+		inline Mat3 RotationMatrix3x3ByZ(float angle)
 		{
 			Mat3 result;
 			result.data[0][0]=cos(angle); result.data[0][1]=-sin(angle); result.data[0][2]=0.0f;

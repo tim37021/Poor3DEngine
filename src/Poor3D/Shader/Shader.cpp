@@ -21,6 +21,30 @@ Shader::~Shader()
 	glDeleteProgram(id);
 }
 
+bool Shader::setUniform(const char *name, float value) const
+{
+	GLint variable=glGetUniformLocation(id, name);
+	if(variable!=-1)
+	{
+		glUniform1f(variable, value);
+		return true;
+	}
+
+	return false;
+}
+
+bool Shader::setUniform(const char *name, const Poor3D::Math::Mat4 &value) const
+{
+	GLint variable=glGetUniformLocation(id, name);
+	if(variable!=-1)
+	{
+		glUniformMatrix4fv(variable, 1, GL_TRUE, &value.data[0][0]);
+		return true;
+	}
+
+	return false;
+}
+
 std::string Shader::readFile(const char *filename) const
 {
 	FILE *fp = fopen(filename, "rb");
@@ -53,17 +77,17 @@ GLuint Shader::createShader(GLenum shaderType, const char *shaderCode) const
 	GLint result = GL_FALSE;
 	int infoLength;
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &result);
-    glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLength);
+	glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLength);
 
-    if(result == GL_FALSE)
-    {
-	    std::string info;
-	    char *buffer = new char[infoLength+1];
-	    glGetShaderInfoLog(shaderID, infoLength, NULL, buffer);
-	    buffer[infoLength]='\0';
-	    info = buffer;
-	    delete [] buffer;
-	    throw std::runtime_error(std::string("Compile shader error: ")+ info);
+	if(result == GL_FALSE)
+	{
+		std::string info;
+		char *buffer = new char[infoLength+1];
+		glGetShaderInfoLog(shaderID, infoLength, NULL, buffer);
+		buffer[infoLength]='\0';
+		info = buffer;
+		delete [] buffer;
+		throw std::runtime_error(std::string("Compile shader error: ")+ info);
 	}
 
 	return shaderID;
@@ -72,26 +96,26 @@ GLuint Shader::createShader(GLenum shaderType, const char *shaderCode) const
 GLuint Shader::linkProgram(GLuint vs, GLuint fs) const
 {
 	GLuint program = glCreateProgram();
-    glAttachShader(program, vs);
-    glAttachShader(program, fs);
-    glLinkProgram(program);
+	glAttachShader(program, vs);
+	glAttachShader(program, fs);
+	glLinkProgram(program);
 
 	//check for errors
 	GLint result = GL_FALSE;
 	int infoLength;
-    glGetProgramiv(program, GL_LINK_STATUS, &result);
-    glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLength);
+	glGetProgramiv(program, GL_LINK_STATUS, &result);
+	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLength);
 
-    if(result == GL_FALSE)
-    {
-    	std::string info;
-    	char *buffer = new char[infoLength+1];
-    	glGetProgramInfoLog(program, infoLength, NULL, buffer);
-    	buffer[infoLength]='\0';
-    	info = buffer;
-    	delete [] buffer;
-    	throw std::runtime_error(std::string("Link shaders error: ")+ info);
-    }
+	if(result == GL_FALSE)
+	{
+		std::string info;
+		char *buffer = new char[infoLength+1];
+		glGetProgramInfoLog(program, infoLength, NULL, buffer);
+		buffer[infoLength]='\0';
+		info = buffer;
+		delete [] buffer;
+		throw std::runtime_error(std::string("Link shaders error: ")+ info);
+	}
 
-    return program;
+	return program;
 }

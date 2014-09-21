@@ -2,10 +2,11 @@ cmake_minimum_required (VERSION 2.6)
 project (Poor3D)
 find_package(OpenGL)
 
-set(CMAKE_CXX_FLAGS "-g -std=c++0x -DGLEW_STATIC")
+set(CMAKE_CXX_FLAGS "-g -std=c++0x -DGLEW_STATIC -fvar-tracking")
 set(CMAKE_C_FLAGS "-g -DGLEW_STATIC")
 
 set(SOURCE
+  ./src/Poor3D/Math/Mat4.cpp
 	./src/Test/test.cpp
 	./src/Poor3D/Core/CoreEngine.cpp
 	./src/Poor3D/Window/P3DWindow.cpp

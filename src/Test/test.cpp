@@ -6,6 +6,19 @@
 using namespace Poor3D;
 using namespace std;
 
+
+void print(const Math::Mat4 &m)
+{
+	for(int i=0; i<4; i++)
+	{
+		for(int j=0; j<4; j++)
+		{
+			cout<<m.data[i][j]<<" ";	
+		}
+		cout<<endl;
+	}
+}
+
 class myGame: public Core::Game
 {
 public:
@@ -45,11 +58,22 @@ public:
 	virtual void render()
 	{
 		shader->bind();
-		GLuint ref=glGetUniformLocation(shader->getID(), "model");	
-		glUniformMatrix4fv(ref, 1, 0, &t.getMatrix().data[0][0]);
+		shader->setUniform("model", t.getMatrix());
 		renderEngine->render(sc);
 	}
 };
+
+void print(const Math::Mat3 &m)
+{
+	for(int i=0; i<3; i++)
+	{
+		for(int j=0; j<3; j++)
+		{
+			cout<<m.data[i][j]<<" ";	
+		}
+		cout<<endl;
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -59,6 +83,6 @@ int main(int argc, char *argv[])
 
 	engine.createWindow(800, 600, "Default");
 	engine.start();
-	
+
 	return 0;
 }
