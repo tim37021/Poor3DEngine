@@ -12,23 +12,21 @@ namespace Poor3D
 		{
 		public:
 			TransMat4()
-				: dirty(true), scale(1.0f, 1.0f, 1.0f), rotateAngle(0.0f), translate(0.0f, 0.0f, 0.0f)
+				: dirty(true), scale(1.0f, 1.0f, 1.0f), rotate(1.0f, 1.0f, 1.0f), translate(0.0f, 0.0f, 0.0f)
 			{
 			}
 
 			void setScale(float x, float y, float z)
 				{scale=Vec3f(x, y, z); dirty=true;}
-			void setRotation(float angle, const Vec3f &v)
-				{rotateAxis=v; rotateAngle=angle; dirty=true;}
+			void setRotation(float x, float y, float z)
+				{rotate=Vec3f(x, y, z); dirty=true;}
 			void setTranslate(float x, float y, float z)
 				{translate=Vec3f(x, y, z); dirty=true;}
 			const Mat4 &getMatrix()
 			{
 				if(dirty){
 					const Mat4 &s=ScaleMatrix(scale.x, scale.y, scale.z);
-					Mat4 r=RotationMatrix(rotateAngle, rotateAxis);
-					if(rotateAngle<EPSILON)
-						r.setIdentity();
+					const Mat4 &r=RotationMatrixEular(rotate.x, rotate.y, rotate.z);
 					const Mat4 &t=TranslationMatrix(translate.x, translate.y, translate.z);
 					dirty=false;
 					return cache=t*r*s;
@@ -37,8 +35,7 @@ namespace Poor3D
 			}
 		private:
 			Vec3f scale;
-			Vec3f rotateAxis;
-			float rotateAngle;
+			Vec3f rotate;
 			Vec3f translate;
 
 			bool dirty;

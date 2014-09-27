@@ -49,7 +49,7 @@ public:
 	{
 		angle+=0.0001f;
 		//t.setScale(sin(angle), 1.0f, 1.0f);
-		t.setRotation(angle, Math::Vec3f(0.0f, 0.0f, 1.0f));
+		t.setRotation(0.0f, 0.0f, angle);
 		//ESC
 		if(engine->getKeyboard()->keyUp(256)){
 			engine->stop();
