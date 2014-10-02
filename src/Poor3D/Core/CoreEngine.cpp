@@ -53,6 +53,7 @@ void CoreEngine::run()
 
 	window->makeCurrent();
 
+	glewExperimental = GL_TRUE;
 	GLenum err=glewInit();
 	if (err != GLEW_OK)
 		throw std::runtime_error("GLEW FAILED");

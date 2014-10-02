@@ -36,9 +36,7 @@ public:
 
 	virtual void buildScene()
 	{
-		vector<Math::Vec3f> vec = {{0.0, 1.0, 0.0}, {-1.0, -1.0, 0.0}, {1.0, -1.0, 0.0}};
-		vector<int> ind = {0, 1, 2};
-		Rendering::Mesh *triangle = new Rendering::Mesh(vec, ind);
+		Rendering::Mesh *triangle = Utils::loadObjMesh("resource/models/monkey.obj");
 		sc->objects.push_back(triangle);
 	
 		shader = new Shader::Shader("./resource/shaders/test.vs", "./resource/shaders/test.fs");
@@ -58,7 +56,9 @@ public:
 	virtual void render()
 	{
 		shader->bind();
-		shader->setUniform("model", t.getMatrix());
+		Math::Mat4 m;
+		m.setIdentity();
+		shader->setUniform("model", m);
 		renderEngine->render(sc);
 	}
 };
