@@ -27,11 +27,13 @@ public:
 	Shader::Shader *shader;
 	float angle;
 	Math::TransMat4 t;
-	
+	Math::Mat4 proj;
+
 	myGame()
 		: sc(new Scene::Scene())
 	{
 		angle=0.0f;
+		proj = Math::PerspectiveProjMatrix(toRadian(30.0f), 800.0f/600.0f, 0.1f, 20.0f);
 	}
 
 	virtual void buildScene()
@@ -48,6 +50,8 @@ public:
 		angle+=0.0001f;
 		//t.setScale(sin(angle), 1.0f, 1.0f);
 		t.setRotation(0.0f, 0.0f, angle);
+		t.setTranslate(0.0, 0.0f, 10+10*sin(angle));
+		cout<<10+10*sin(angle)<<endl;
 		//ESC
 		if(engine->getKeyboard()->keyUp(256)){
 			engine->stop();
@@ -56,9 +60,7 @@ public:
 	virtual void render()
 	{
 		shader->bind();
-		Math::Mat4 m;
-		m.setIdentity();
-		shader->setUniform("model", m);
+		shader->setUniform("model", proj*t.getMatrix());
 		renderEngine->render(sc);
 	}
 };

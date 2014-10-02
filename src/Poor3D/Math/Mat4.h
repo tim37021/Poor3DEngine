@@ -45,6 +45,8 @@ namespace Poor3D
 		Mat4 RotationMatrix(float angle, const Vec3f &dir);
 
 		Mat4 RotationMatrixEular(float x, float y, float z);
+	
+		Mat4 PerspectiveProjMatrix(float fov, float aspect, float zNear, float zFar);
 	}
 }
 

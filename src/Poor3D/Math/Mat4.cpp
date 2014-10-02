@@ -99,3 +99,32 @@ Math::Mat4 Math::RotationMatrixEular(float x, float y, float z)
 {
 	return RotationMatrix4x4ByX(x)*RotationMatrix4x4ByY(y)*RotationMatrix4x4ByZ(z);
 }
+
+Math::Mat4 Math::PerspectiveProjMatrix(float fov, float aspect, float zNear, float zFar)
+{
+	Math::Mat4 result;
+	const float zRange=zNear - zFar;
+	const float tanHalfFOV = tanf(fov / 2.0f);
+
+	result.data[0][0]=1.0/(tanHalfFOV*aspect);
+	result.data[0][1]=0.0f;
+	result.data[0][2]=0.0f;
+	result.data[0][3]=0.0f;
+
+	result.data[1][0]=0.0f;
+	result.data[1][1]=1.0f/tanHalfFOV;
+	result.data[1][2]=0.0f;
+	result.data[1][3]=0.0f;
+
+	result.data[2][0]=0.0f;
+	result.data[2][1]=0.0f;
+	result.data[2][2]=(-zNear-zFar)/zRange;
+	result.data[2][3]=2.0f*zFar*zNear/zRange;
+
+	result.data[3][0]=0.0f;
+	result.data[3][1]=0.0f;
+	result.data[3][2]=1.0f;
+	result.data[3][3]=0.0f;
+
+	return result;
+}

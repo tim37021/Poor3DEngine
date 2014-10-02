@@ -40,7 +40,7 @@ Rendering::Mesh *Utils::loadObjMesh(const char *filename)
 				sscanf(linebuf, "f %d//%*d %d//%*d %d//%*d", 
 						&ind[0], &ind[1], &ind[2]);
 				for(i=0; i<3; i++)
-					indices.push_back(ind[i]);
+					indices.push_back(ind[i]-1);
 				break;
 				//comment
 			case '#':

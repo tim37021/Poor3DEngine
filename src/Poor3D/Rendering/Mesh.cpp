@@ -25,7 +25,7 @@ void Mesh::render() const
 void Mesh::addVertices(const std::vector<Vec3f> &vertices, 
 	const std::vector<int> &indices)
 {
-	std::vector<Vertex> data;
+	std::vector<Vertex> &data = *new std::vector<Vertex>();
 	indicesCount = indices.size();
 	calcNormals(data, vertices, indices);
 
@@ -48,6 +48,8 @@ void Mesh::addVertices(const std::vector<Vec3f> &vertices,
 	//default state
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	delete &data;
 }
 
 void Mesh::calcNormals(std::vector<Vertex> &out,
