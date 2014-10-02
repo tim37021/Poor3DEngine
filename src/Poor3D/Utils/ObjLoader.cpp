@@ -34,7 +34,7 @@ Rendering::Mesh Utils::loadObjMesh(const char *filename)
 				vertices.push_back({v[0], v[1], v[2]});
 				break;
 			case 'f':
-				sscanf(linebuf, "f %d/%*d/%*d %d/%*d/%*d %d/%*d/%*d", 
+				sscanf(linebuf, "f %d//%*d %d//%*d %d//%*d", 
 						&ind[0], &ind[1], &ind[2]);
 				for(i=0; i<3; i++)
 					indices.push_back(i);

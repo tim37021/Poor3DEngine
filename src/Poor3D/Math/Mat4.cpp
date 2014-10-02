@@ -24,9 +24,7 @@ void Math::FindOrthoVec(const Math::Vec3f &v, Math::Vec3f &out1, Math::Vec3f &ou
 {	
 	int i;
 	int count=isZero(v.x)+isZero(v.y)+isZero(v.z);
-	float sum=0.0f;
 	float d[3]={v.x, v.y, v.z};
-	int found;
 	switch(count)
 	{
 		case 0:

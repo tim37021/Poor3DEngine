@@ -12,7 +12,7 @@ namespace Poor3D
 		{
 		public:
 			TransMat4()
-				: dirty(true), scale(1.0f, 1.0f, 1.0f), rotate(1.0f, 1.0f, 1.0f), translate(0.0f, 0.0f, 0.0f)
+				: scale(1.0f, 1.0f, 1.0f), rotate(1.0f, 1.0f, 1.0f), translate(0.0f, 0.0f, 0.0f), dirty(true)
 			{
 			}
 
