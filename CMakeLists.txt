@@ -15,6 +15,7 @@ set(SOURCE
 	./src/Poor3D/Rendering/Mesh.cpp
 	./src/Poor3D/Rendering/RenderEngine.cpp
 	./src/Poor3D/Shader/Shader.cpp
+	./src/Poor3D/Utils/ObjLoader.cpp
 )
 
 add_library( glew ./lib/glew.c)

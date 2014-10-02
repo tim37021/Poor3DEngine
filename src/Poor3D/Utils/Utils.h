@@ -10,6 +10,7 @@ namespace Poor3D
 		void createSphere(std::vector<Poor3D::Math::Vec3f> &outVertices, 
 			std::vector<int> &outIndices, 
 			int seg, int ring);
+		Poor3D::Rendering::Mesh loadObjMesh(const char *filename);
 	}
 }
 
