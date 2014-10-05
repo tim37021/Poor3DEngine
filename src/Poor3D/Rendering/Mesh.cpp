@@ -33,12 +33,14 @@ void Mesh::addVertices(const std::vector<Vec3f> &vertices,
 	glBindVertexArray(vao);
 
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 
 	//generate vertex buffer
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*data.size(), data.data(), GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *)sizeof(Vec3f));
 
 	//generate index buffer
 	glGenBuffers(1, &ibo);
@@ -51,6 +53,8 @@ void Mesh::addVertices(const std::vector<Vec3f> &vertices,
 
 	delete &data;
 }
+
+#include <cstdio>
 
 void Mesh::calcNormals(std::vector<Vertex> &out,
 	const std::vector<Poor3D::Math::Vec3f> &vertices, 

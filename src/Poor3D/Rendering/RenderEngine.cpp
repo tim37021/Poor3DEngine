@@ -14,6 +14,9 @@ RenderEngine::RenderEngine()
 	glEnable(GL_DEPTH_CLAMP);
 */
 	//glEnable(GL_TEXTURE_2D);
+	//
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_CLAMP);
 }
 
 void RenderEngine::render(const Poor3D::Scene::Scene *s)

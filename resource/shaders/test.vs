@@ -1,7 +1,17 @@
-uniform mat4 model;
-uniform float angle;
+#version 120
 
-void main(void){
-	//gl_Position=vec4(cos(angle)*gl_Vertex.x+gl_Vertex.y*-sin(angle), sin(angle)*gl_Vertex.x+cos(angle)*gl_Vertex.y, 0.0, 1.0);
-  gl_Position=model*gl_Vertex;
+attribute vec3 pos;
+attribute vec3 normal;
+
+uniform mat4 modelview;
+uniform mat4 proj;
+uniform mat4 rotate;
+
+varying vec4 vNormal;
+varying vec4 vPos;
+
+void main(void){	
+	vNormal=rotate*vec4(normal, 1.0);
+	vPos=modelview*vec4(pos, 1.0);
+	gl_Position=proj*modelview*vec4(pos, 1.0);
 }

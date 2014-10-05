@@ -26,12 +26,19 @@ namespace Poor3D
 			{
 				if(dirty){
 					const Mat4 &s=ScaleMatrix(scale.x, scale.y, scale.z);
-					const Mat4 &r=RotationMatrixEular(rotate.x, rotate.y, rotate.z);
+					rotationCache=RotationMatrixEular(rotate.x, rotate.y, rotate.z);
 					const Mat4 &t=TranslationMatrix(translate.x, translate.y, translate.z);
 					dirty=false;
-					return cache=t*r*s;
+					return cache=t*rotationCache*s;
 				}
 				return cache;
+			}
+
+			const Mat4 &getRotationMatrix()
+			{
+				if(dirty)
+					getMatrix();
+				return rotationCache;
 			}
 		private:
 			Vec3f scale;
@@ -40,6 +47,7 @@ namespace Poor3D
 
 			bool dirty;
 			Mat4 cache;
+			Mat4 rotationCache;
 		};
 	}
 }

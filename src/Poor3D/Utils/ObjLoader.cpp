@@ -50,7 +50,5 @@ Rendering::Mesh *Utils::loadObjMesh(const char *filename)
 	}
 	fclose(fp);
 
-	printf("%d %d\n", vertices.size(), indices.size());
-
 	return new Rendering::Mesh(vertices, indices);
 }

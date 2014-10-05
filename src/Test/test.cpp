@@ -28,9 +28,10 @@ public:
 	float angle;
 	Math::TransMat4 t;
 	Math::Mat4 proj;
+	double lasttime;
 
 	myGame()
-		: sc(new Scene::Scene())
+		: sc(new Scene::Scene()), lasttime(0.0f)
 	{
 		angle=0.0f;
 		proj = Math::PerspectiveProjMatrix(toRadian(30.0f), 800.0f/600.0f, 0.1f, 20.0f);
@@ -38,7 +39,7 @@ public:
 
 	virtual void buildScene()
 	{
-		Rendering::Mesh *triangle = Utils::loadObjMesh("resource/models/monkey.obj");
+		Rendering::Mesh *triangle = Utils::loadObjMesh("resource/models/monkey_high.obj");
 		sc->objects.push_back(triangle);
 	
 		shader = new Shader::Shader("./resource/shaders/test.vs", "./resource/shaders/test.fs");
@@ -47,11 +48,10 @@ public:
 
 	virtual void update()
 	{
-		angle+=0.0001f;
+		angle=3.1415926f*Core::getTime();
 		//t.setScale(sin(angle), 1.0f, 1.0f);
-		t.setRotation(0.0f, 0.0f, angle);
-		t.setTranslate(0.0, 0.0f, 10+10*sin(angle));
-		cout<<10+10*sin(angle)<<endl;
+		t.setRotation(angle, 0.0f, angle);
+		t.setTranslate(0.0, 0.0f, 10+7*sin(angle));
 		//ESC
 		if(engine->getKeyboard()->keyUp(256)){
 			engine->stop();
@@ -60,7 +60,17 @@ public:
 	virtual void render()
 	{
 		shader->bind();
-		shader->setUniform("model", proj*t.getMatrix());
+		shader->setUniform("modelview", t.getMatrix());
+		shader->setUniform("proj", proj);
+		shader->setUniform("rotate", t.getRotationMatrix());
+	
+		if(Core::getTime()-lasttime>=1.0){
+			char buf[30];
+			sprintf(buf, "Default - %d fps", engine->getWindow()->getFPS());
+			engine->getWindow()->setTitle(buf);
+			lasttime=Core::getTime();
+		}
+
 		renderEngine->render(sc);
 	}
 };
@@ -81,7 +91,7 @@ int main(int argc, char *argv[])
 {
 
 	myGame *g = new myGame();
-	Core::CoreEngine engine(g);
+	Core::CoreEngine engine(g, 9999);
 
 	engine.createWindow(800, 600, "Default");
 	engine.start();
