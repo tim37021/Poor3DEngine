@@ -16,9 +16,7 @@ namespace Poor3D
 				{return pos;}
 
 			void setPosition(float x, float y, float z)
-				{dirty=true; pos=Vec3f(x, y, z);}
-			void setRotation(float x, float y, float z)
-				{dirty=true; rotate=Vec3f(x, y, z);}
+				{dirty=true; pos=Poor3D::Math::Vec3f(x, y, z);}
 
 			const Poor3D::Math::Mat4 &getMatrix()
 			{
@@ -28,13 +26,17 @@ namespace Poor3D
 			}
 			const Poor3D::Math::Mat4 &getMatrix() const
 				{return mat;}
-		protect:
+		protected:
 			bool dirty;
 			Poor3D::Math::Vec3f pos;
-			Poor3D::Math::Vec3f rotate;
+
+			//These three are unit vector
+			Poor3D::Math::Vec3f dir;
+			Poor3D::Math::Vec3f up;
+			Poor3D::Math::Vec3f right;
 		private:
 			Poor3D::Math::Mat4 mat;
-			void calcMatrix(const Poor3D::Math::Vec3f &lookAt, const Poor3D::Math::Vec3f &up);
+			void calcMatrix();
 		};
 	}
 }

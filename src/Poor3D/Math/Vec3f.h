@@ -79,6 +79,8 @@ namespace Poor3D
 
 		};
 
+		void FindOrthoVec(const Vec3f &v, Vec3f &out1, Vec3f &out2);
+
 	}
 }
 

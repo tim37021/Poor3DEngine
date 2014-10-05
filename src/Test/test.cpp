@@ -28,13 +28,17 @@ public:
 	float angle;
 	Math::TransMat4 t;
 	Math::Mat4 proj;
-	double lasttime;
+	Scene::WalkerCamera cam;
+	double lasttime, lastUpdate;
 
 	myGame()
-		: sc(new Scene::Scene()), lasttime(0.0f)
+		: sc(new Scene::Scene()), 
+			cam(Math::Vec3f(), Math::Vec3f(0, 0, 10.0f), Math::Vec3f(0, 1, 0)),
+			lasttime(0.0f), lastUpdate(0.0f)
 	{
 		angle=0.0f;
 		proj = Math::PerspectiveProjMatrix(toRadian(30.0f), 800.0f/600.0f, 0.1f, 20.0f);
+
 	}
 
 	virtual void buildScene()
@@ -49,19 +53,31 @@ public:
 	virtual void update()
 	{
 		angle=3.1415926f*Core::getTime();
-		//t.setScale(sin(angle), 1.0f, 1.0f);
 		t.setRotation(angle, 0.0f, angle);
-		t.setTranslate(0.0, 0.0f, 10+7*sin(angle));
+		t.setTranslate(0.0, 0.0f, 10+3*sin(angle));
 		//ESC
 		if(engine->getKeyboard()->keyUp(256)){
 			engine->stop();
 		}
+
+		float deltaT=Core::getTime()-lastUpdate;
+
+		if(engine->getKeyboard()->getKeyState(265)){
+			cam.moveForward(deltaT*10.0f);
+		}
+		if(engine->getKeyboard()->getKeyState(264))
+			cam.moveForward(-deltaT*10.0f);
+		if(engine->getKeyboard()->getKeyState(263))
+			cam.turn(deltaT*3.1415926f);
+		if(engine->getKeyboard()->getKeyState(262))
+			cam.turn(-deltaT*3.1415926f);
+		lastUpdate=Core::getTime();
 	}
 	virtual void render()
 	{
 		shader->bind();
-		shader->setUniform("modelview", t.getMatrix());
-		shader->setUniform("proj", proj);
+		shader->setUniform("model", t.getMatrix());
+		shader->setUniform("mvp", proj*cam.getMatrix()*t.getMatrix());
 		shader->setUniform("rotate", t.getRotationMatrix());
 	
 		if(Core::getTime()-lasttime>=1.0){

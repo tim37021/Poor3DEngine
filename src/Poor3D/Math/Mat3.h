@@ -46,6 +46,33 @@ namespace Poor3D
 					return result;		
 				}
 
+				const Mat3 operator*(float factor) const
+				{
+
+					Mat3 result;
+					for(int i=0; i<3; i++)
+					{
+						for(int j=0; j<3; j++)
+						{
+							result.data[i][j]=data[i][j]*factor;
+						}
+					}
+					return result;	
+				}
+
+				const Mat3 operator+(const Mat3 &rhs) const
+				{
+					Mat3 result;
+					for(int i=0; i<3; i++)
+					{
+						for(int j=0; j<3; j++)
+						{
+							result.data[i][j]=data[i][j]+rhs.data[i][j];
+						}
+					}
+					return result;
+				}
+
 				void setIdentity()
 				{
 					data[0][0]=1.0f; data[0][1]=0.0f; data[0][2]=0.0f;
@@ -80,6 +107,7 @@ namespace Poor3D
 				}
 		};
 
+
 		inline Mat3 RotationMatrix3x3ByZ(float angle)
 		{
 			Mat3 result;
@@ -88,6 +116,18 @@ namespace Poor3D
 			result.data[2][0]=0.0f;	      result.data[2][1]=0.0f;	     result.data[2][2]=1.0f;
 
 			return result;
+		}
+
+		//Rodrigues rotation formula
+		inline Mat3 RotationMatrix3x3(float angle, const Math::Vec3f &dir)
+		{
+			Mat3 W; auto &m=W.data;
+			m[0][0]=0.0f;	m[0][1]=-dir.z; m[0][2]=dir.y;
+			m[1][0]=dir.z;	m[1][1]=0.0f;	m[1][2]=-dir.z;
+			m[2][0]=-dir.y;	m[2][1]=dir.x;	m[2][2]=0.0f;
+
+			Mat3 I; I.setIdentity();
+			return I+W*sin(-angle)+(W*W)*(2.0f*sin(-angle/2.0f)*sin(-angle/2.0f));
 		}
 	}
 }

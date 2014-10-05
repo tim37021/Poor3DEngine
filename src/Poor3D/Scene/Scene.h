@@ -3,6 +3,8 @@
 
 #include <Poor3D/Poor3D.h>
 #include <vector>
+#include <Poor3D/Scene/Camera.h>
+#include <Poor3D/Scene/WalkerCamera.h>
 
 namespace Poor3D
 {
