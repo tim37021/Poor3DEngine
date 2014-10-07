@@ -3,6 +3,8 @@ Poor3D is a open source 3D game engine. The goal is to implement modern renderin
 
 This is the third engine made on my own. I refer to some of the existing engine on the Internet like Orge3D, Irrlicht, Torque3D and theBennyBox.
 
+This is an engine I write for exercise, there may be some weird and premuture code.
+
 If there are some bugs or unnecessary code feel free to report.
 
 Tim
