@@ -33,6 +33,17 @@ bool Shader::setUniform(const char *name, float value) const
 	return false;
 }
 
+bool Shader::setUniform(const char *name, const Poor3D::Math::Vec3f &v) const
+{
+	GLint variable=glGetUniformLocation(id, name);
+	if(variable!=-1)
+	{
+		glUniform3f(variable, v.x, v.y, v.z);
+		return true;
+	}
+	return false;
+}
+
 bool Shader::setUniform(const char *name, const Poor3D::Math::Mat4 &value) const
 {
 	GLint variable=glGetUniformLocation(id, name);

@@ -16,6 +16,8 @@ set(SOURCE
 	./src/Poor3D/Rendering/RenderEngine.cpp
 	./src/Poor3D/Shader/Shader.cpp
 	./src/Poor3D/Utils/ObjLoader.cpp
+	./src/Poor3D/Scene/Camera.cpp
+	./src/Poor3D/Scene/WalkerCamera.cpp
 )
 
 add_library( glew ./lib/glew.c)
@@ -23,4 +25,4 @@ add_library( glew ./lib/glew.c)
 include_directories(./src ./include)
 add_executable(Poor3D ${SOURCE})
 TARGET_LINK_LIBRARIES(Poor3D glew)
-TARGET_LINK_LIBRARIES(Poor3D -lglfw3 -pthread -lX11 -lXrandr -lXi -lXxf86vm -lXcursor -lGL)
+TARGET_LINK_LIBRARIES(Poor3D -lglfw3 -pthread -lX11 -lXrandr -lXi -lXxf86vm -lXinerama -lXcursor -lGL)

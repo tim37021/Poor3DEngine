@@ -28,7 +28,7 @@ void CoreEngine::createWindow(int width, int height,
 	const char *title)
 {
 	//Create OpenGL 3.3 context window
-	window = new P3DWindow(width, height, title, 2, 1);
+	window = new P3DWindow(width, height, title, 3, 3);
 	mouse->setWindow(window);
 	keybd->setWindow(window);
 }
@@ -58,8 +58,8 @@ void CoreEngine::run()
 	if (err != GLEW_OK)
 		throw std::runtime_error("GLEW FAILED");
 
-	if (!glewIsSupported("GL_VERSION_2_1"))
-		throw std::runtime_error("This application need OpenGL 2.1");
+	if (!glewIsSupported("GL_VERSION_3_3"))
+		throw std::runtime_error("This application need OpenGL 3.3");
 
 	game->buildScene();
 

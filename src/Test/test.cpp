@@ -79,6 +79,7 @@ public:
 		shader->setUniform("model", t.getMatrix());
 		shader->setUniform("mvp", proj*cam.getMatrix()*t.getMatrix());
 		shader->setUniform("rotate", t.getRotationMatrix());
+		shader->setUniform("Eye", cam.getPosition());
 	
 		if(Core::getTime()-lasttime>=1.0){
 			char buf[30];
