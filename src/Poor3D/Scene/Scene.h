@@ -5,6 +5,7 @@
 #include <vector>
 #include <Poor3D/Scene/Camera.h>
 #include <Poor3D/Scene/WalkerCamera.h>
+#include <Poor3D/Scene/SceneNode.h>
 
 namespace Poor3D
 {
@@ -18,7 +19,12 @@ namespace Poor3D
 				for(int i=0; i<objects.size(); i++)
 					delete objects[i];
 			}
-			std::vector<Poor3D::Rendering::Mesh *> objects;
+			Poor3D::Scene::SceneNode *attach(Poor3D::Scene::SceneNode *obj)
+			{
+				objects.push_back(obj);
+				return obj;
+			}
+			std::vector<Poor3D::Scene::SceneNode *> objects;
 		};
 	}
 }

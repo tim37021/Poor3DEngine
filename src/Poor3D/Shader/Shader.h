@@ -2,7 +2,9 @@
 #define SHADER_SHADER_H_
 
 #include <string>
-#include <Poor3D/Math/Math.h>
+#include <GL/glew.h>
+#include <Poor3D/Math/Vec3f.h>
+#include <Poor3D/Math/Mat4.h>
 
 namespace Poor3D
 {

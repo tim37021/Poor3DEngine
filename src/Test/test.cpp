@@ -26,9 +26,9 @@ public:
 	Scene::Scene *sc;
 	Shader::Shader *shader;
 	float angle;
-	Math::TransMat4 t;
 	Math::Mat4 proj;
 	Scene::WalkerCamera cam;
+	Scene::SceneNode *obj;
 	double lasttime, lastUpdate;
 
 	myGame()
@@ -37,24 +37,27 @@ public:
 			lasttime(0.0f), lastUpdate(0.0f)
 	{
 		angle=0.0f;
-		proj = Math::PerspectiveProjMatrix(toRadian(30.0f), 800.0f/600.0f, 0.1f, 20.0f);
+		proj = Math::PerspectiveProjMatrix(toRadian(30.0f), 800.0f/600.0f, 0.1f, 200.0f);
 
 	}
 
 	virtual void buildScene()
 	{
-		Rendering::Mesh *triangle = Utils::loadObjMesh("resource/models/monkey_high.obj");
-		sc->objects.push_back(triangle);
-	
-		shader = new Shader::Shader("./resource/shaders/test.vs", "./resource/shaders/test.fs");
+		Rendering::Mesh *monkey = Utils::loadObjMesh("resource/models/monkey_high.obj");
+		sc->attach(new Scene::SceneNode(monkey, new Rendering::Material()));
+		
+		Rendering::Mesh *circle = Utils::loadObjMesh("resource/models/untitled.obj");
+		obj=sc->objects[0]->attach(new Scene::SceneNode(circle, new Rendering::Material()));
+
 		renderEngine = new Rendering::RenderEngine();
 	}
 
 	virtual void update()
 	{
 		angle=3.1415926f*Core::getTime();
-		t.setRotation(angle, 0.0f, angle);
-		t.setTranslate(0.0, 0.0f, 10+3*sin(angle));
+		sc->objects[0]->getTransform()->setRotation(0.0f, 0.0f, angle);
+		obj->getTransform()->setTranslate(0.0, 1.0f, 10);
+		obj->getTransform()->setRotation(0.0f, 0.0f, angle);
 		//ESC
 		if(engine->getKeyboard()->keyUp(256)){
 			engine->stop();
@@ -64,6 +67,7 @@ public:
 
 		if(engine->getKeyboard()->getKeyState(265)){
 			cam.moveForward(deltaT*10.0f);
+			//fprintf(stderr, "SHIT");
 		}
 		if(engine->getKeyboard()->getKeyState(264))
 			cam.moveForward(-deltaT*10.0f);
@@ -75,12 +79,6 @@ public:
 	}
 	virtual void render()
 	{
-		shader->bind();
-		shader->setUniform("model", t.getMatrix());
-		shader->setUniform("mvp", proj*cam.getMatrix()*t.getMatrix());
-		shader->setUniform("rotate", t.getRotationMatrix());
-		shader->setUniform("Eye", cam.getPosition());
-	
 		if(Core::getTime()-lasttime>=1.0){
 			char buf[30];
 			sprintf(buf, "Default - %d fps", engine->getWindow()->getFPS());
@@ -88,7 +86,7 @@ public:
 			lasttime=Core::getTime();
 		}
 
-		renderEngine->render(sc);
+		renderEngine->render(proj, cam, sc);
 	}
 };
 

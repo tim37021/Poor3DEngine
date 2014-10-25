@@ -1,6 +1,7 @@
 #ifndef RENDERING_RENDERENGINE_H_
 #define RENDERING_RENDERENGINE_H_
 
+#include <Poor3D/Math/Mat4.h>
 #include <Poor3D/Scene/Scene.h>
 
 namespace Poor3D
@@ -11,7 +12,9 @@ namespace Poor3D
 		{
 		public:
 			RenderEngine();
-			void render(const Poor3D::Scene::Scene *);
+			void render(const Poor3D::Math::Mat4 &,
+				Poor3D::Scene::Camera &cam, 
+				const Poor3D::Scene::Scene *);
 		};
 	}
 }

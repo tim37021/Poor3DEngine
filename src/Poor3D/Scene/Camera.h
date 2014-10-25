@@ -24,8 +24,6 @@ namespace Poor3D
 					calcMatrix();
 				return mat;
 			}
-			const Poor3D::Math::Mat4 &getMatrix() const
-				{return mat;}
 		protected:
 			bool dirty;
 			Poor3D::Math::Vec3f pos;
