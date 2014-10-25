@@ -23,6 +23,11 @@ set(SOURCE
 add_library( glew ./lib/glew.c)
 
 include_directories(./src ./include)
+link_directories(./lib)
 add_executable(Poor3D ${SOURCE})
 TARGET_LINK_LIBRARIES(Poor3D glew)
-TARGET_LINK_LIBRARIES(Poor3D -lglfw3 -pthread -lX11 -lXrandr -lXi -lXxf86vm -lXinerama -lXcursor -lGL)
+if(WIN32)
+	TARGET_LINK_LIBRARIES(Poor3D -lglfw3 -pthread -lopengl32)
+else()
+	TARGET_LINK_LIBRARIES(Poor3D -lglfw3 -pthread -lX11 -lXrandr -lXi -lXxf86vm -lXinerama -lXcursor -lGL)
+endif()

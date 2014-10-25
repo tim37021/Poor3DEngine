@@ -1,5 +1,6 @@
 #include <Poor3D/Poor3D.h>
 #include <cstdio>
+#include <stdexcept>
 
 using namespace Poor3D::Shader;
 
