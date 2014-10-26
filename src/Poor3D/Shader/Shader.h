@@ -22,6 +22,7 @@ namespace Poor3D
 				{ return id; }
 
 				bool setUniform(const char *, float) const;
+				bool setUniform(const char *, int) const;
 				bool setUniform(const char *, const Poor3D::Math::Vec3f &) const;
 				bool setUniform(const char *, const Poor3D::Math::Mat4 &) const;
 			private:

@@ -20,6 +20,13 @@ Camera::Camera(const Vec3f &p, const Vec3f &c, const Vec3f &u)
 
 
 	calcMatrix();
+
+	proj.setIdentity();
+}
+
+void Camera::setPerspective(float angle, float aspect, float near, float far) const
+{
+	proj=PerspectiveProjMatrix(angle, aspect, near, far);
 }
 
 void Camera::calcMatrix()

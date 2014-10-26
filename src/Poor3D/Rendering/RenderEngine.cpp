@@ -19,13 +19,13 @@ RenderEngine::RenderEngine()
 	glEnable(GL_DEPTH_CLAMP);
 }
 
-void RenderEngine::render(const Poor3D::Math::Mat4 &proj,
-	Poor3D::Scene::Camera &cam,
-	const Poor3D::Scene::Scene *s)
+void RenderEngine::render(Poor3D::Scene::Scene *s)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	for(int i=0; i<s->objects.size(); i++)
+
+	auto &objects=*(s->getRootNodeList());
+	for(unsigned int i=0; i<objects.size(); i++)
 	{
-		s->objects[i]->render(proj, cam);
+		objects[i]->render(s);
 	}
 }

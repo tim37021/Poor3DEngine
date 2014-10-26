@@ -22,6 +22,18 @@ Shader::~Shader()
 	glDeleteProgram(id);
 }
 
+bool Shader::setUniform(const char *name, int value) const
+{
+	GLint variable=glGetUniformLocation(id, name);
+	if(variable!=-1)
+	{
+		glUniform1i(variable, value);
+		return true;
+	}
+
+	return false;
+}
+
 bool Shader::setUniform(const char *name, float value) const
 {
 	GLint variable=glGetUniformLocation(id, name);

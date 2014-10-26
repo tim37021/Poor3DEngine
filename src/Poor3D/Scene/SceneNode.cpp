@@ -24,24 +24,23 @@ SceneNode *SceneNode::attach(SceneNode *child)
 	return child;
 }
 
-void SceneNode::render(const Mat4 &proj, Camera &cam)
+void SceneNode::render(Poor3D::Scene::Scene *sc)
 {
 	Mat4 identity; identity.setIdentity();
-	m_material->bind(proj, cam, identity, identity, m_trans);
+	m_material->bind(sc->getCamera()->getProjectionMatrix(), sc->getCamera(), identity, identity, m_trans);
 	m_mesh->render();
 
 	for(auto child: m_children)
-		child->render(proj, cam, m_trans.getMatrix(), m_trans.getRotationMatrix());
+		child->render(sc, m_trans.getMatrix(), m_trans.getRotationMatrix());
 }
 
-void SceneNode::render(const Mat4 &proj, 
-	Camera &cam, 
+void SceneNode::render(Poor3D::Scene::Scene *sc,
 	const Mat4 &parentModel, 
 	const Mat4 &parentRotation)
 {
-	m_material->bind(proj, cam, parentModel, parentRotation, m_trans);
+	m_material->bind(sc->getCamera()->getProjectionMatrix(), sc->getCamera(), parentModel, parentRotation, m_trans);
 	m_mesh->render();
 
 	for(auto child: m_children)
-		child->render(proj, cam, parentModel*m_trans.getMatrix(), parentRotation*m_trans.getRotationMatrix());
+		child->render(sc, parentModel*m_trans.getMatrix(), parentRotation*m_trans.getRotationMatrix());
 }

@@ -6,6 +6,8 @@
 #include <Poor3D/Rendering/Vertex.h>
 #include <Poor3D/Rendering/Mesh.h>
 #include <Poor3D/Rendering/Material.h>
+#include <Poor3D/Rendering/PhongMaterial.h>
+#include <Poor3D/Rendering/Light.h>
 
 
 #endif

@@ -4,12 +4,14 @@
 #include <Poor3D/Math/TransMat4.h>
 #include <Poor3D/Rendering/Mesh.h>
 #include <Poor3D/Rendering/Material.h>
+#include <Poor3D/Scene/Scene_def.h>
 #include <vector>
 
 namespace Poor3D
 {
 	namespace Scene
 	{
+		class Scene;
 		class SceneNode
 		{
 		public:
@@ -18,10 +20,8 @@ namespace Poor3D
 			Poor3D::Math::TransMat4 *getTransform()
 				{return &m_trans;}
 			SceneNode *attach(SceneNode *);
-			void render(const Poor3D::Math::Mat4 &proj, 
-				Poor3D::Scene::Camera &cam);
-			void render(const Poor3D::Math::Mat4 &proj, 
-				Poor3D::Scene::Camera &cam, 
+			void render(Scene *sc);
+			void render(Scene *sc, 
 				const Poor3D::Math::Mat4 &parentModel, 
 				const Poor3D::Math::Mat4 &parentRotation);
 

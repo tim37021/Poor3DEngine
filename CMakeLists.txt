@@ -15,8 +15,10 @@ set(SOURCE
 	./src/Poor3D/Rendering/Mesh.cpp
 	./src/Poor3D/Rendering/RenderEngine.cpp
 	./src/Poor3D/Rendering/Material.cpp
+	./src/Poor3D/Rendering/PhongMaterial.cpp
 	./src/Poor3D/Shader/Shader.cpp
 	./src/Poor3D/Utils/ObjLoader.cpp
+	./src/Poor3D/Scene/Scene.cpp
 	./src/Poor3D/Scene/SceneNode.cpp
 	./src/Poor3D/Scene/Camera.cpp
 	./src/Poor3D/Scene/WalkerCamera.cpp

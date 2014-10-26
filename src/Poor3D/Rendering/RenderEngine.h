@@ -12,9 +12,7 @@ namespace Poor3D
 		{
 		public:
 			RenderEngine();
-			void render(const Poor3D::Math::Mat4 &,
-				Poor3D::Scene::Camera &cam, 
-				const Poor3D::Scene::Scene *);
+			void render(Poor3D::Scene::Scene *);
 		};
 	}
 }
