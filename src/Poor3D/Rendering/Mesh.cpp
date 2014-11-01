@@ -3,7 +3,7 @@
 using namespace Poor3D::Rendering;
 using namespace Poor3D::Math;
 
-Mesh::Mesh(const std::vector<Vec3f> &vertices, 
+Mesh::Mesh(std::vector<Vertex> &vertices, 
 	const std::vector<int> &indices)
 {
 	addVertices(vertices, indices);
@@ -22,25 +22,29 @@ void Mesh::render() const
 	glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, nullptr);
 }
 
-void Mesh::addVertices(const std::vector<Vec3f> &vertices, 
+void Mesh::addVertices(std::vector<Vertex> &vertices, 
 	const std::vector<int> &indices)
 {
-	std::vector<Vertex> &data = *new std::vector<Vertex>();
 	indicesCount = indices.size();
-	calcNormals(data, vertices, indices);
+	calcNormals(vertices, indices);
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	//generate vertex buffer
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*data.size(), data.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*vertices.size(), vertices.data(), GL_STATIC_DRAW);
+	//pos
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
+	//texCoord
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *)sizeof(Vec3f));
+	//normal
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *)(sizeof(Vec3f)+sizeof(Vec2f)));
 
 	//generate index buffer
 	glGenBuffers(1, &ibo);
@@ -50,39 +54,29 @@ void Mesh::addVertices(const std::vector<Vec3f> &vertices,
 	//default state
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-
-	delete &data;
 }
 
 #include <cstdio>
 
-void Mesh::calcNormals(std::vector<Vertex> &out,
-	const std::vector<Poor3D::Math::Vec3f> &vertices, 
+void Mesh::calcNormals(std::vector<Vertex> &vertices, 
 	const std::vector<int> &indices) const
 {
-	out.clear();
-	out.resize(vertices.size());
-	for(int i=0; i<indices.size(); i+=3)
+	for(unsigned int i=0; i<indices.size(); i+=3)
 	{
-		const Vec3f &o=vertices[indices[i]];
-		const Vec3f &a=vertices[indices[i+1]];
-		const Vec3f &b=vertices[indices[i+2]];
+		const Vec3f &o=vertices[indices[i]].pos;
+		const Vec3f &a=vertices[indices[i+1]].pos;
+		const Vec3f &b=vertices[indices[i+2]].pos;
 
 		Vec3f normal=(a-o).cross(b-o);
 		normal.normalize();
 
 		//We use +=, taking adventage of Vec3f default init(to zero).
-		out[indices[i]].pos=o;
-		out[indices[i]].normal+=normal;
-
-		out[indices[i+1]].pos=a;
-		out[indices[i+1]].normal+=normal;
-
-		out[indices[i+2]].pos=b;
-		out[indices[i+2]].normal+=normal;
+		vertices[indices[i]].normal+=normal;
+		vertices[indices[i+1]].normal+=normal;
+		vertices[indices[i+2]].normal+=normal;
 	}
 
 	//normalize all the vertex normals to achieve smooth shading
-	for(int i=0; i<out.size(); i++)
-		out[i].normal.normalize();
+	for(unsigned int i=0; i<vertices.size(); i++)
+		vertices[i].normal.normalize();
 }

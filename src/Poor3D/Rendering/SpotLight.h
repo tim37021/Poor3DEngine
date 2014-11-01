@@ -10,12 +10,13 @@ namespace Poor3D
 		struct SpotLight: public Light
 		{
 			Poor3D::Math::Vec3f direction;
-			float angle;
+			float inner_angle;
+			float outer_angle;
 
 			SpotLight(const Poor3D::Math::Vec3f &p,
 						const Poor3D::Math::Vec3f &c,
 						const Poor3D::Math::Vec3f &dir,
-						float a);
+						float inner, float outer);
 			virtual void setUniform(const Poor3D::Shader::Shader *shader, 
 				int *pLightCount,
 				int *sLightCount);

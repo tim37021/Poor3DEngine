@@ -6,8 +6,8 @@ using namespace std;
 SpotLight::SpotLight(const Poor3D::Math::Vec3f &p,
 					const Poor3D::Math::Vec3f &c,
 					const Poor3D::Math::Vec3f &dir,
-					float a)
-	: Light(p, c), direction(dir), angle(a)
+					float inner, float outer)
+	: Light(p, c), direction(dir), inner_angle(inner), outer_angle(outer)
 {
 
 }
@@ -20,6 +20,8 @@ void SpotLight::setUniform(const Poor3D::Shader::Shader *shader,
 	shader->setUniform((head+".pos").c_str(), position);
 	shader->setUniform((head+".color").c_str(), color);
 	shader->setUniform((head+".dir").c_str(), direction);
-	shader->setUniform((head+".angle").c_str(), angle);
+	shader->setUniform((head+".inner_angle").c_str(), inner_angle);
+	shader->setUniform((head+".outer_angle").c_str(), outer_angle);
+
 	(*sLightCount)++;
 }

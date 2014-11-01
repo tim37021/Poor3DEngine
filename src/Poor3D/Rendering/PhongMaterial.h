@@ -12,11 +12,17 @@ namespace Poor3D
 		class PhongMaterial: public Material
 		{
 		public:
-			PhongMaterial(float ambient=1.0f, 
-				Poor3D::Math::Vec3f diffuse=Poor3D::Math::Vec3f(0.2, 0.2, 0.2),
+			PhongMaterial(Poor3D::Math::Vec3f diffuse,
+				float ambient=1.0f,
 				float specular=1.0f,
 				float shininess=30.0f,
 				std::vector<Light *> *plights=nullptr);
+			PhongMaterial(Texture *text=nullptr,
+				float ambient=1.0f,
+				float specular=1.0f,
+				float shininess=30.0f,
+				std::vector<Light *> *plights=nullptr);
+
 			void bindLights(const std::vector<Light *> *plights)
 				{m_plights=plights;}
 
@@ -28,8 +34,10 @@ namespace Poor3D
 		private:
 			void setLightsUniform() const;
 
-			float m_ambient;
+			
+			Texture *m_texture;
 			Poor3D::Math::Vec3f m_diffuse;
+			float m_ambient;
 			float m_specular;
 			float m_shininess;
 

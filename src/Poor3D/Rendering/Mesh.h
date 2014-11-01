@@ -13,7 +13,7 @@ namespace Poor3D
 		class Mesh
 		{
 		public:
-			Mesh(const std::vector<Poor3D::Math::Vec3f> &vertices,
+			Mesh(std::vector<Poor3D::Rendering::Vertex> &vertices,
 				const std::vector<int> &indices);
 			~Mesh();
 
@@ -26,10 +26,9 @@ namespace Poor3D
 			GLuint ibo;
 			unsigned int indicesCount;
 
-			void calcNormals(std::vector<Vertex> &out,
-				const std::vector<Poor3D::Math::Vec3f> &vertices, 
+			void calcNormals(std::vector<Poor3D::Rendering::Vertex> &vertices, 
 				const std::vector<int> &indices) const;
-			void addVertices(const std::vector<Poor3D::Math::Vec3f> &vertices, 
+			void addVertices(std::vector<Poor3D::Rendering::Vertex> &vertices, 
 				const std::vector<int> &indices);
 		};
 	}

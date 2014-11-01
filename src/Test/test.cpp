@@ -46,14 +46,19 @@ public:
 	virtual void buildScene()
 	{
 		Rendering::Mesh *monkey = Utils::loadObjMesh("resource/models/blade.obj");
-		Rendering::PhongMaterial *m=new Rendering::PhongMaterial();
+		Utils::BITMAP_FILEHEADER *header;
+		Utils::BITMAP_INFOHEADER *info;
+		unsigned char *bmp=Utils::loadBMP("resource/texture/blade.bmp", &header, &info);
+		Rendering::Texture *text = new Rendering::Texture(info->width, info->height, Utils::getBMPRaw(bmp, header));
+		
+		Rendering::PhongMaterial *m=new Rendering::PhongMaterial(text);
 		sc->attach(new Scene::SceneNode(monkey, m));
 		
 		Rendering::Mesh *circle = Utils::loadObjMesh("resource/models/untitled.obj");
 		obj=sc->getRootNodeList()->at(0)->attach(new Scene::SceneNode(circle, m));
 
 		light=sc->attach(new Rendering::SpotLight(Math::Vec3f(10, 0, 7),
-			Math::Vec3f(20.0f, 16.0f, 16.0f), Math::Vec3f()-Math::Vec3f(10, 0, 7), toRadian(10.0f)));
+			Math::Vec3f(20.0f, 16.0f, 16.0f), Math::Vec3f()-Math::Vec3f(10, 0, 7),  toRadian(2.0f), toRadian(10.0f)));
 		sc->attach(new Rendering::Light(Math::Vec3f(-10, 0, 7), Math::Vec3f(16.0f, 16.0f, 16.0f)));
 
 		m->bindLights(sc->getLights());

@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <Poor3D/Math/Vec3f.h>
 #include <Poor3D/Math/Mat4.h>
+#include <Poor3D/Rendering/Texture.h>
 
 namespace Poor3D
 {

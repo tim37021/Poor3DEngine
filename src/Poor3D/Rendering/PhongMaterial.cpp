@@ -7,19 +7,38 @@ using namespace Poor3D::Rendering;
 using namespace Poor3D::Scene;
 using namespace std;
 
-PhongMaterial::PhongMaterial(float ambient, 
-				Vec3f diffuse,
+PhongMaterial::PhongMaterial(Vec3f diffuse,
+				float ambient,
 				float specular,
 				float shininess,
 				std::vector<Light *> *plights)
 	: Material("./resource/shaders/phong.vs", "./resource/shaders/phong.fs"),
-	  m_ambient(ambient),
+	  m_texture(nullptr),
 	  m_diffuse(diffuse),
+	  m_ambient(ambient),
 	  m_specular(specular),
 	  m_shininess(shininess),
 	  m_plights(plights)
 {
 
+}
+
+PhongMaterial::PhongMaterial(Texture *text,
+				float ambient,
+				float specular,
+				float shininess,
+				std::vector<Light *> *plights)
+	: Material("./resource/shaders/phong.vs", "./resource/shaders/phong.fs"),
+	  m_texture(text),
+	  m_diffuse(0.2, 0.2, 0.2),
+	  m_ambient(ambient),
+	  m_specular(specular),
+	  m_shininess(shininess),
+	  m_plights(plights)
+{
+	//temporary code
+	if(m_texture!=nullptr)
+		m_diffuse.x=-1.0f;
 }
 
 void PhongMaterial::bind(const Mat4 &proj, 
@@ -37,6 +56,12 @@ void PhongMaterial::bind(const Mat4 &proj,
 	//if lights array ptr has been set
 	if(m_plights)
 		setLightsUniform();
+
+	if(m_texture)
+	{
+		m_texture->bind(GL_TEXTURE0);
+		m_shader.setUniform("textureSampler", 0);
+	}
 }
 
 void PhongMaterial::setLightsUniform() const
