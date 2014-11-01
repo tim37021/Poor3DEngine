@@ -10,6 +10,7 @@
 #include <Poor3D/Rendering/Light.h>
 #include <Poor3D/Rendering/SpotLight.h>
 #include <Poor3D/Rendering/Texture.h>
+#include <Poor3D/Rendering/FrameBuffer.h>
 
 
 #endif
