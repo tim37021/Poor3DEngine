@@ -18,8 +18,10 @@ set(SOURCE
 	./src/Poor3D/Rendering/RenderEngine.cpp
 	./src/Poor3D/Rendering/Material.cpp
 	./src/Poor3D/Rendering/PhongMaterial.cpp
+	./src/Poor3D/Rendering/Texture.cpp
 	./src/Poor3D/Shader/Shader.cpp
 	./src/Poor3D/Utils/ObjLoader.cpp
+	./src/Poor3D/Utils/BMPLoader.cpp
 	./src/Poor3D/Scene/Scene.cpp
 	./src/Poor3D/Scene/SceneNode.cpp
 	./src/Poor3D/Scene/Camera.cpp
