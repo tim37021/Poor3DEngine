@@ -19,6 +19,7 @@ set(SOURCE
 	./src/Poor3D/Rendering/Material.cpp
 	./src/Poor3D/Rendering/PhongMaterial.cpp
 	./src/Poor3D/Rendering/Texture.cpp
+	./src/Poor3D/Rendering/FrameBuffer.cpp
 	./src/Poor3D/Shader/Shader.cpp
 	./src/Poor3D/Utils/ObjLoader.cpp
 	./src/Poor3D/Utils/BMPLoader.cpp
@@ -35,7 +36,7 @@ link_directories(./lib)
 add_executable(Poor3D ${SOURCE})
 TARGET_LINK_LIBRARIES(Poor3D glew)
 if(WIN32)
-	TARGET_LINK_LIBRARIES(Poor3D -lglfw3 -pthread -lopengl32)
+	TARGET_LINK_LIBRARIES(Poor3D -static -lglfw3 -pthread -lopengl32)
 else()
 	TARGET_LINK_LIBRARIES(Poor3D -lglfw3 -pthread -lX11 -lXrandr -lXi -lXxf86vm -lXinerama -lXcursor -lGL)
 endif()
