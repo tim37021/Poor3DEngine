@@ -11,4 +11,13 @@
 #include <Poor3D/Shader/Shader.h>
 #include <Poor3D/Utils/Utils.h>
 
+namespace Poor3D
+{
+	template <class Class, typename T>
+	inline bool	instanceof(T const &object)
+	{
+		return dynamic_cast<Class const *>(&object);
+	}
+}
+
 #endif

@@ -45,15 +45,16 @@ public:
 
 	virtual void buildScene()
 	{
-		Rendering::Mesh *monkey = Utils::loadObjMesh("resource/models/monkey_high.obj");
+		Rendering::Mesh *monkey = Utils::loadObjMesh("resource/models/blade.obj");
 		Rendering::PhongMaterial *m=new Rendering::PhongMaterial();
 		sc->attach(new Scene::SceneNode(monkey, m));
 		
 		Rendering::Mesh *circle = Utils::loadObjMesh("resource/models/untitled.obj");
 		obj=sc->getRootNodeList()->at(0)->attach(new Scene::SceneNode(circle, m));
 
-		sc->attach(new Rendering::Light(Math::Vec3f(10, 0, 7), Math::Vec3f(1.0f, 0.8f, 0.0f)));
-		sc->attach(new Rendering::Light(Math::Vec3f(-10, 0, 7), Math::Vec3f(0.0f, 0.8f, 0.8f)));
+		light=sc->attach(new Rendering::SpotLight(Math::Vec3f(10, 0, 7),
+			Math::Vec3f(20.0f, 16.0f, 16.0f), Math::Vec3f()-Math::Vec3f(10, 0, 7), toRadian(10.0f)));
+		sc->attach(new Rendering::Light(Math::Vec3f(-10, 0, 7), Math::Vec3f(16.0f, 16.0f, 16.0f)));
 
 		m->bindLights(sc->getLights());
 
@@ -63,11 +64,12 @@ public:
 	virtual void update()
 	{
 		angle=3.1415926f*Core::getTime();
-		sc->getRootNodeList()->at(0)->getTransform()->setRotation(0.0f, 0.0f, angle);
+		sc->getRootNodeList()->at(0)->getTransform()->setRotation(0.0f, angle, 0.0f);
+		sc->getRootNodeList()->at(0)->getTransform()->setScale(2.0f, 2.0f, 2.0f);
 		obj->getTransform()->setTranslate(0.0, 1.0f, 10);
 		obj->getTransform()->setRotation(0.0f, 0.0f, angle);
-		//sc->lights[0]->color=Math::Vec3f(1.0f, 0.8f, 0.0f)*(sinf(angle/2.0f)+1.0f);
-		//sc->lights[1]->position=Math::Vec3f(0.0f, 5*cosf(angle/2.0f), 5*sinf(angle/2.0f));
+		//(static_cast<Rendering::SpotLight *>(light))->angle=abs(sin(angle/8.0f));
+
 		//ESC
 		if(engine->getKeyboard()->keyUp(256)){
 			engine->stop();

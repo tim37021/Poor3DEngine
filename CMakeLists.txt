@@ -12,6 +12,8 @@ set(SOURCE
 	./src/Poor3D/Window/P3DWindow.cpp
 	./src/Poor3D/Window/P3DMouse.cpp
 	./src/Poor3D/Window/P3DKeyboard.cpp
+	./src/Poor3D/Rendering/Light.cpp
+	./src/Poor3D/Rendering/SpotLight.cpp
 	./src/Poor3D/Rendering/Mesh.cpp
 	./src/Poor3D/Rendering/RenderEngine.cpp
 	./src/Poor3D/Rendering/Material.cpp

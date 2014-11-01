@@ -1,5 +1,6 @@
-#include <Poor3D/Rendering/PhongMaterial.h>
+#include <Poor3D/Poor3D.h>
 #include <string>
+#include <stdio.h>
 
 using namespace Poor3D::Math;
 using namespace Poor3D::Rendering;
@@ -42,12 +43,13 @@ void PhongMaterial::setLightsUniform() const
 {
 	unsigned int i;
 	const std::vector<Light *> &m_lights=*m_plights;
-	m_shader.setUniform("lightCount", static_cast<int>(m_lights.size()));
+	int plightCount=0;
+	int slightCount=0;
+	
 	for(i=0; i<m_lights.size(); i++)
-	{
-		string head="plights[";
-		head+=to_string(i)+"]";
-		m_shader.setUniform((head+".pos").c_str(), m_lights[i]->position);
-		m_shader.setUniform((head+".color").c_str(), m_lights[i]->color);
-	}
+		m_lights[i]->setUniform(&m_shader, &plightCount, &slightCount);
+
+	m_shader.setUniform("pointlightCount", plightCount);
+	m_shader.setUniform("spotlightCount", slightCount);
+
 }

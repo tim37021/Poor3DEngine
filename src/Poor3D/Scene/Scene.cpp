@@ -1,4 +1,5 @@
 #include <Poor3D/Scene/Scene_def.h>
+#include <Poor3D/Rendering/Light.h>
 
 using namespace Poor3D::Scene;
 

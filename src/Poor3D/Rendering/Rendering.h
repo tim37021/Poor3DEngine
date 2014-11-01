@@ -8,6 +8,7 @@
 #include <Poor3D/Rendering/Material.h>
 #include <Poor3D/Rendering/PhongMaterial.h>
 #include <Poor3D/Rendering/Light.h>
+#include <Poor3D/Rendering/SpotLight.h>
 
 
 #endif
