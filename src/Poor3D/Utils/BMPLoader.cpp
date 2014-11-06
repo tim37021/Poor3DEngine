@@ -20,3 +20,20 @@ unsigned char *Poor3D::Utils::loadBMP(const char *filename, BITMAP_FILEHEADER **
 	fclose(fp);
 	return buffer;
 }
+
+void Poor3D::Utils::saveBMP(const char *filename, const void *data, int width, int height)
+{
+	BITMAP_FILEHEADER header={0x4d42, 
+		sizeof(BITMAP_FILEHEADER)+sizeof(BITMAP_INFOHEADER)+width*height*3
+		, 0, 0, sizeof(BITMAP_FILEHEADER)+sizeof(BITMAP_INFOHEADER)};
+	BITMAP_INFOHEADER info={sizeof(BITMAP_INFOHEADER), width, height, 1, 24, 0, width*height*3, width, height, 0, 1};
+
+	FILE *fp = fopen(filename, "wb");
+
+	fwrite(&header, 1, sizeof(header), fp);
+	fwrite(&info, 1, sizeof(info), fp);
+
+	fwrite(data, 1, width*height*3, fp);
+
+	fclose(fp);
+}

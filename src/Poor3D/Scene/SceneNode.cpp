@@ -24,11 +24,16 @@ SceneNode *SceneNode::attach(SceneNode *child)
 	return child;
 }
 
-void SceneNode::render(Poor3D::Scene::Scene *sc)
+void SceneNode::render(Poor3D::Scene::Scene *sc, const Material *material)
 {
 	Mat4 identity; identity.setIdentity();
-	m_material->bind(sc->getCamera()->getProjectionMatrix(), sc->getCamera(), identity, identity, m_trans);
+
+	//Use explicit assigned material or not?
+	material = material? material: m_material;
+
+	material->bind(sc->getCamera()->getProjectionMatrix(), sc->getCamera(), identity, identity, m_trans);
 	m_mesh->render();
+	material->unbind();
 
 	for(auto child: m_children)
 		child->render(sc, m_trans.getMatrix(), m_trans.getRotationMatrix());
@@ -36,10 +41,15 @@ void SceneNode::render(Poor3D::Scene::Scene *sc)
 
 void SceneNode::render(Poor3D::Scene::Scene *sc,
 	const Mat4 &parentModel, 
-	const Mat4 &parentRotation)
+	const Mat4 &parentRotation,
+	const Material *material)
 {
-	m_material->bind(sc->getCamera()->getProjectionMatrix(), sc->getCamera(), parentModel, parentRotation, m_trans);
+	//Use explicit assigned material or not?
+	material = material? material: m_material;
+
+	material->bind(sc->getCamera()->getProjectionMatrix(), sc->getCamera(), parentModel, parentRotation, m_trans);
 	m_mesh->render();
+	material->unbind();
 
 	for(auto child: m_children)
 		child->render(sc, parentModel*m_trans.getMatrix(), parentRotation*m_trans.getRotationMatrix());

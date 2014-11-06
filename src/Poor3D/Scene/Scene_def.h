@@ -22,6 +22,9 @@ namespace Poor3D
 
 			Poor3D::Rendering::Light *attach(Poor3D::Rendering::Light *light);
 
+			void setCamera(Camera *cam)
+				{ m_camera=cam; } 
+
 			Camera *getCamera()
 				{ return m_camera; } 
 

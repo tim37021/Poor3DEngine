@@ -19,6 +19,8 @@ set(SOURCE
 	./src/Poor3D/Rendering/Material.cpp
 	./src/Poor3D/Rendering/PhongMaterial.cpp
 	./src/Poor3D/Rendering/Texture.cpp
+	./src/Poor3D/Rendering/ImageTexture.cpp
+	./src/Poor3D/Rendering/DepthTexture.cpp
 	./src/Poor3D/Rendering/FrameBuffer.cpp
 	./src/Poor3D/Shader/Shader.cpp
 	./src/Poor3D/Utils/ObjLoader.cpp

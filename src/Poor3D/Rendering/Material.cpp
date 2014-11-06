@@ -32,3 +32,13 @@ void Material::bind(const Mat4 &proj,
 	m_shader.setUniform("Eye", cam->getPosition());
 
 }
+
+void Material::bind() const
+{
+	m_shader.bind();
+}
+
+void Material::unbind() const
+{
+	m_shader.bind();
+}

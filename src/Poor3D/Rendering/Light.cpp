@@ -11,7 +11,8 @@ Light::Light(const Poor3D::Math::Vec3f &p, const Poor3D::Math::Vec3f &c)
 
 Light::~Light()
 {
-
+	for(unsigned int i=0; i<shadow_map.size(); i++)
+		delete shadow_map[i].second;
 }
 
 void Light::setUniform(const Poor3D::Shader::Shader *shader,

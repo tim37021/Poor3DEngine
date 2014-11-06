@@ -20,10 +20,11 @@ namespace Poor3D
 			Poor3D::Math::TransMat4 *getTransform()
 				{return &m_trans;}
 			SceneNode *attach(SceneNode *);
-			void render(Scene *sc);
+			void render(Scene *sc, const Poor3D::Rendering::Material *material=nullptr);
 			void render(Scene *sc, 
 				const Poor3D::Math::Mat4 &parentModel, 
-				const Poor3D::Math::Mat4 &parentRotation);
+				const Poor3D::Math::Mat4 &parentRotation,
+				const Poor3D::Rendering::Material *material=nullptr);
 
 		private:
 			Poor3D::Rendering::Mesh *m_mesh;

@@ -13,12 +13,12 @@ PhongMaterial::PhongMaterial(Vec3f diffuse,
 				float shininess,
 				std::vector<Light *> *plights)
 	: Material("./resource/shaders/phong.vs", "./resource/shaders/phong.fs"),
-	  m_texture(nullptr),
 	  m_diffuse(diffuse),
 	  m_ambient(ambient),
 	  m_specular(specular),
 	  m_shininess(shininess),
-	  m_plights(plights)
+	  m_plights(plights),
+	  m_texture(nullptr)
 {
 
 }
@@ -29,12 +29,12 @@ PhongMaterial::PhongMaterial(Texture *text,
 				float shininess,
 				std::vector<Light *> *plights)
 	: Material("./resource/shaders/phong.vs", "./resource/shaders/phong.fs"),
-	  m_texture(text),
 	  m_diffuse(0.2, 0.2, 0.2),
 	  m_ambient(ambient),
 	  m_specular(specular),
 	  m_shininess(shininess),
-	  m_plights(plights)
+	  m_plights(plights),
+	  m_texture(text)
 {
 	//temporary code
 	if(m_texture!=nullptr)
@@ -62,6 +62,12 @@ void PhongMaterial::bind(const Mat4 &proj,
 		m_texture->bind(GL_TEXTURE0);
 		m_shader.setUniform("textureSampler", 0);
 	}
+}
+
+void PhongMaterial::unbind() const
+{
+	Material::unbind();
+	m_texture->unbind(GL_TEXTURE0);
 }
 
 void PhongMaterial::setLightsUniform() const

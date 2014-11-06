@@ -22,6 +22,10 @@ namespace Poor3D
 				const Poor3D::Math::Mat4 &parentModel, 
 				const Poor3D::Math::Mat4 &parentRotation, 
 				Poor3D::Math::TransMat4 &t) const;
+
+			void bind() const;
+
+			virtual void unbind() const;
 		protected:
 			Poor3D::Shader::Shader m_shader;
 		};

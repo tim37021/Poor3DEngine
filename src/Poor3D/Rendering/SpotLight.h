@@ -17,6 +17,7 @@ namespace Poor3D
 						const Poor3D::Math::Vec3f &c,
 						const Poor3D::Math::Vec3f &dir,
 						float inner, float outer);
+			virtual ~SpotLight();
 			virtual void setUniform(const Poor3D::Shader::Shader *shader, 
 				int *pLightCount,
 				int *sLightCount);

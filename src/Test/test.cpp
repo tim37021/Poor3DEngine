@@ -24,44 +24,51 @@ class myGame: public Core::Game
 public:
 	Rendering::RenderEngine *renderEngine;
 	Scene::Scene *sc;
-	Shader::Shader *shader;
 	float angle;
-	Math::Mat4 proj;
 	Scene::WalkerCamera cam;
 	Scene::SceneNode *obj;
 	double lasttime, lastUpdate;
 	Rendering::Light *light;
+	
 
 	myGame()
-		:	cam(Math::Vec3f(), Math::Vec3f(0, 0, 10.0f), Math::Vec3f(0, 1, 0)),
+		:	cam(Math::Vec3f(0, 1, 0), Math::Vec3f(5, 1, 0), Math::Vec3f(0, 1, 0)),
 			lasttime(0.0f), lastUpdate(0.0f)
 	{
 		sc = new Scene::Scene(&cam);
 		cam.setPerspective(toRadian(30.0f), 800.0f/600.0f, 0.1f, 200.0f);
 		angle=0.0f;
-		//proj = Math::PerspectiveProjMatrix(toRadian(30.0f), 800.0f/600.0f, 0.1f, 200.0f);
-
 	}
 
 	virtual void buildScene()
 	{
-		Rendering::Mesh *monkey = Utils::loadObjMesh("resource/models/blade.obj");
+		
+		//Load textures
 		Utils::BITMAP_FILEHEADER *header;
 		Utils::BITMAP_INFOHEADER *info;
 		unsigned char *bmp=Utils::loadBMP("resource/texture/blade.bmp", &header, &info);
-		Rendering::Texture *text = new Rendering::Texture(info->width, info->height, Utils::getBMPRaw(bmp, header));
+		Rendering::Texture *text = new Rendering::ImageTexture(info->width, info->height, Utils::getBMPRaw(bmp, header));
+		delete [] bmp;
+
+		//Create Material
+		Rendering::PhongMaterial *m, *m2;
+		m=new Rendering::PhongMaterial(text);
+		m2=new Rendering::PhongMaterial(Math::Vec3f(0.4, 0.4, 0.4));
 		
-		Rendering::PhongMaterial *m=new Rendering::PhongMaterial(text);
+		Rendering::Mesh *dragon = Utils::loadObjMesh("resource/models/dragon.obj");
+		obj=sc->attach(new Scene::SceneNode(dragon, m2));
+		Rendering::Mesh *monkey = Utils::loadObjMesh("resource/models/blade.obj");
 		sc->attach(new Scene::SceneNode(monkey, m));
-		
-		Rendering::Mesh *circle = Utils::loadObjMesh("resource/models/untitled.obj");
-		obj=sc->getRootNodeList()->at(0)->attach(new Scene::SceneNode(circle, m));
+		sc->attach(new Scene::SceneNode(Utils::loadObjMesh("resource/models/plane.obj"), m2));
 
-		light=sc->attach(new Rendering::SpotLight(Math::Vec3f(10, 0, 7),
-			Math::Vec3f(20.0f, 16.0f, 16.0f), Math::Vec3f()-Math::Vec3f(10, 0, 7),  toRadian(2.0f), toRadian(10.0f)));
-		sc->attach(new Rendering::Light(Math::Vec3f(-10, 0, 7), Math::Vec3f(16.0f, 16.0f, 16.0f)));
+		//Add lights
+		light=sc->attach(new Rendering::SpotLight(Math::Vec3f(10, 5, 0),
+			Math::Vec3f(20.0f, 16.0f, 16.0f), Math::Vec3f()-Math::Vec3f(10, 5, 0),  toRadian(30.0f), toRadian(60.0f)));
+		sc->attach(new Rendering::Light(Math::Vec3f(-10, 5, 7), Math::Vec3f(16.0f, 16.0f, 16.0f)));
 
+		//Bind the lights array to the materials
 		m->bindLights(sc->getLights());
+		m2->bindLights(sc->getLights());
 
 		renderEngine = new Rendering::RenderEngine();
 	}
@@ -69,17 +76,13 @@ public:
 	virtual void update()
 	{
 		angle=3.1415926f*Core::getTime();
-		sc->getRootNodeList()->at(0)->getTransform()->setRotation(0.0f, angle, 0.0f);
-		sc->getRootNodeList()->at(0)->getTransform()->setScale(2.0f, 2.0f, 2.0f);
-		obj->getTransform()->setTranslate(0.0, 1.0f, 10);
-		obj->getTransform()->setRotation(0.0f, 0.0f, angle);
-		//(static_cast<Rendering::SpotLight *>(light))->angle=abs(sin(angle/8.0f));
+
+		obj->getTransform()->setTranslate(0.0, sinf(angle), 0.0);
 
 		//ESC
-		if(engine->getKeyboard()->keyUp(256)){
+		if(engine->getKeyboard()->keyUp(256))
 			engine->stop();
-		}
-
+		
 		float deltaT=Core::getTime()-lastUpdate;
 
 		if(engine->getKeyboard()->getKeyState(265))
@@ -92,6 +95,7 @@ public:
 			cam.turn(-deltaT*3.1415926f);
 		lastUpdate=Core::getTime();
 	}
+
 	virtual void render()
 	{
 		if(Core::getTime()-lasttime>=1.0){
@@ -101,6 +105,7 @@ public:
 			lasttime=Core::getTime();
 		}
 
+		renderEngine->updateShadowMap(sc);
 		renderEngine->render(sc);
 	}
 };

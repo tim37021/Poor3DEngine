@@ -36,6 +36,7 @@ namespace Poor3D
 		#pragma pack(4)
 
 		unsigned char *loadBMP(const char *filename, BITMAP_FILEHEADER **header, BITMAP_INFOHEADER **info);
+		void saveBMP(const char *filename, const void *data, int width, int height);
 	}
 
 }
