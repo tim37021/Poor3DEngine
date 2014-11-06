@@ -2,21 +2,9 @@
 
 using namespace Poor3D::Rendering;
 
-Texture::Texture(int width, int height, void *image)
+Texture::Texture()
 {
 	glGenTextures(1, &m_id);
-	// "Bind" the newly created texture : all future texture functions will modify this texture
-	glBindTexture(GL_TEXTURE_2D, m_id);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	// Give the image to OpenGL
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, image);
-	 
 }
 
 Texture::~Texture()
@@ -28,4 +16,45 @@ void Texture::bind(GLenum text_unit) const
 {
 	glActiveTexture(text_unit);
 	glBindTexture(GL_TEXTURE_2D, m_id);
+}
+
+void Texture::unbind(GLenum text_unit) const
+{
+	glActiveTexture(text_unit);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Texture::getRawImageData(void *buffer, int level) const
+{
+	GLint width, height, internalFormat;
+	bind();
+
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_COMPONENTS, &internalFormat); // get internal format type of GL texture
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width); // get width of GL texture
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height); // get height of GL texture
+
+	GLint numBytes = 0;
+	switch(internalFormat) // determine what type GL texture has...
+	{
+	case GL_RGB:
+	case GL_DEPTH_COMPONENT24:
+	numBytes = width * height * 3;
+	break;
+	case GL_RGBA:
+	numBytes = width * height * 4;
+	break;
+	default: // unsupported type (or you can put some code to support more formats if you need)
+	break;
+	}
+
+	if(numBytes)
+	{
+		glGetTexImage(GL_TEXTURE_2D, 0, GL_BGR, GL_UNSIGNED_BYTE, buffer);
+	}
+
+	GLenum glErr=glGetError();
+	if(glErr!=GL_NO_ERROR)
+	{
+		printf("Error %d", glErr);
+	}
 }
