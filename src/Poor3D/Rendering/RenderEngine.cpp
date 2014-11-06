@@ -4,9 +4,6 @@
 using namespace Poor3D::Rendering;
 using namespace std;
 
-Mesh *tmp;
-GLuint fbo;
-
 RenderEngine::RenderEngine()
 	: m_depth_material("resource/shaders/depth.vs", "resource/shaders/depth.fs")
 {
@@ -23,9 +20,6 @@ RenderEngine::RenderEngine()
 	//
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_DEPTH_CLAMP);
-	tmp = Poor3D::Utils::loadObjMesh("./resource/models/plane_debug.obj");
-	glGenFramebuffers(1, &fbo);
-	printf("%d\n", fbo);
 }
 
 void RenderEngine::render(Poor3D::Scene::Scene *s) const
