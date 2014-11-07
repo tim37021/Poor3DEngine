@@ -83,17 +83,13 @@ void RenderEngine::render_depth(Poor3D::Scene::Scene *s, const DepthTexture *dep
 
 	m_shadow_fbo.attach(*depth, GL_DEPTH_ATTACHMENT, 0);
 
-
 	GLuint status;
-	if ((status = glCheckFramebufferStatus(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE)
-		fprintf(stderr, "3glCheckFramebufferStatus: error %p\n", reinterpret_cast<unsigned int *>(status));
-
-
-	glDrawBuffer(GL_NONE);
+	if ((status=m_shadow_fbo.getStatus()) != GL_FRAMEBUFFER_COMPLETE)
+		fprintf(stderr, "Framebuffer Status Error %p\n", reinterpret_cast<unsigned int *>(status));
 
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
 	glViewport(0, 0, m_shadow_fbo.getWidth(), m_shadow_fbo.getHeight());
+	glDrawBuffer(GL_NONE);
 
 	render_helper(s, &m_depth_material);
 	

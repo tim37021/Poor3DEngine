@@ -36,8 +36,10 @@ void FrameBuffer::bind() const
 
 void FrameBuffer::attach(const Texture &t, GLenum attachment, int mipmap_level) const
 {
+	GLuint cur=getCurrentFrameBufferID();
 	bind();
 	glFramebufferTexture(GL_DRAW_FRAMEBUFFER, attachment, t.getID(), mipmap_level);
+	glBindFramebuffer(GL_FRAMEBUFFER, cur);
 }
 
 void FrameBuffer::setWidth(int _width)
@@ -50,4 +52,20 @@ void FrameBuffer::setHeight(int _height)
 {
 	height=_height;
 	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_HEIGHT, height);
+}
+
+GLenum FrameBuffer::getStatus() const
+{
+	GLuint cur=getCurrentFrameBufferID();
+	bind();
+	GLenum status=glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	glBindFramebuffer(GL_FRAMEBUFFER, cur);
+	return status;
+}
+
+GLuint FrameBuffer::getCurrentFrameBufferID()
+{
+	GLint id;
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &id);
+	return id;
 }

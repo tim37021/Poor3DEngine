@@ -22,12 +22,14 @@ namespace Poor3D
 			{ return width; }
 			int getHeight() const
 			{ return height; }
+			GLenum getStatus() const;
 
 			void setWidth(int);
 			void setHeight(int);
 		private:
 			GLuint m_id;
 			int width, height;
+			static GLuint getCurrentFrameBufferID();
 		};
 
 		extern const FrameBuffer DEFAULT_FRAMEBUFFER;
