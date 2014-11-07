@@ -12,13 +12,22 @@ namespace Poor3D
 		{
 		public:
 			FrameBuffer();
+			FrameBuffer(int width, int height);
 			FrameBuffer(GLuint id);
 			~FrameBuffer();
 
 			void bind() const;
 			void attach(const Texture &t, GLenum attachment, int mipmap_level=0) const;
+			int getWidth() const
+			{ return width; }
+			int getHeight() const
+			{ return height; }
+
+			void setWidth(int);
+			void setHeight(int);
 		private:
 			GLuint m_id;
+			int width, height;
 		};
 
 		extern const FrameBuffer DEFAULT_FRAMEBUFFER;

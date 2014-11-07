@@ -5,7 +5,8 @@ using namespace Poor3D::Rendering;
 using namespace std;
 
 RenderEngine::RenderEngine()
-	: m_depth_material("resource/shaders/depth.vs", "resource/shaders/depth.fs")
+	: m_depth_material("resource/shaders/depth.vs", "resource/shaders/depth.fs"),
+	  m_shadow_fbo(1024, 1024)
 {
 	//glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
@@ -80,11 +81,7 @@ void RenderEngine::render_depth(Poor3D::Scene::Scene *s, const DepthTexture *dep
 {
 	m_shadow_fbo.bind();
 
-	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_WIDTH, 1024);
-	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_HEIGHT, 1024);
-	//glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_SAMPLES, 4);
-
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth->getID(), 0);
+	m_shadow_fbo.attach(*depth, GL_DEPTH_ATTACHMENT, 0);
 
 
 	GLuint status;
@@ -96,10 +93,10 @@ void RenderEngine::render_depth(Poor3D::Scene::Scene *s, const DepthTexture *dep
 
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-	glViewport(0, 0, 1024, 1024);
+	glViewport(0, 0, m_shadow_fbo.getWidth(), m_shadow_fbo.getHeight());
 
 	render_helper(s, &m_depth_material);
 	
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	DEFAULT_FRAMEBUFFER.bind();
 	glViewport(0, 0, 800, 600);
 }
