@@ -9,7 +9,6 @@ DepthTexture::DepthTexture(int w, int h)
 	width=w;
 	height=h;
 
-	printf("Depth Texture created id=%d", getID());
 	bind();
 	// Poor filtering. Needed !
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
